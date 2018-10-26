@@ -1,7 +1,7 @@
 #!/user/bin/python
 #  -*-coding: utf-8-*-
 import unittest
-from jiandian01 import chaxunshujuku, swipefengzhuang
+from jiandian01 import getmsg_ex, swipe
 import time
 
 from jiandian.common import driver_config,gesture_mainpulation,get_toast,query_database
