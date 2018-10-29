@@ -38,10 +38,10 @@ def query_database(sql):
 update = "update cl_merchant_qrcode set expire_time=0 where mch_id=1006 and expire_time>0 "
 query_database(update)
 time.sleep(2)
-# driver=webdriver.Chrome()
-chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument("--headless")
-driver = webdriver.Chrome(chrome_options=chrome_options)
+driver = webdriver.Chrome()
+# chrome_options = webdriver.ChromeOptions()
+# chrome_options.add_argument("--headless")
+# driver = webdriver.Chrome(chrome_options=chrome_options)
 # driver.get("http://cpaytest.tinywan.com/index/demo/index.html?debug=true")
 
 driver.get("https://cpay.hypayde.com/index/demo/index.html?debug=true")
