@@ -10,6 +10,8 @@ import MySQLdb
 #支付demo界面:输入密码成功登录后，输入主商户号、子商户号，选择支付方式，输入金额，点击提交
 #从diandian_pay.txt中取出金额，传入金额
 
+
+
 def query_database(sql):
     # coon = MySQLdb.connect(host='cpaytest.tinywan.com', user='root', passwd='123456', db='cpay', port=3306,
     #                        charset='utf8')
