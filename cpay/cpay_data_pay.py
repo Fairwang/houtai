@@ -26,15 +26,11 @@ def query_database(self, sql):
         cur = cursor.execute(sql)
         rows = cursor.fetchall()
         qrcode_url = []
-        # print rows
         for row in rows:
-            # print row["qrcode_url"]
             qrcode_url.append(row["qrcode_url"])
-        # print rows
         return qrcode_url
     except:
         print "Error: This is except"
-        # coon.commit()
     coon.close()
 
 
@@ -43,12 +39,12 @@ class zhifubao(unittest.TestCase):
     def setUp(self):
         desired_caps = {}
         desired_caps['platformName'] = 'Android'
-        # desired_caps['platfromVersion'] = '7.1.1'
-        # desired_caps['deviceName'] = '33d04c7c'
-        desired_caps['platfromVersion'] = '8.0.0'
-        desired_caps['deviceName'] = '73EBB18606209676'
+        desired_caps['platfromVersion'] = '7.1.1'
+        desired_caps['deviceName'] = '33d04c7c'
+        # desired_caps['platfromVersion'] = '8.0.0'
+        # desired_caps['deviceName'] = '73EBB18606209676'
         desired_caps['appPackage'] = 'com.eg.android.AlipayGphone'
-        desired_caps['automationName'] = 'uiautomator2'  ##############
+        desired_caps['automationName'] = 'uiautomator2'
         desired_caps['appActivity'] = 'com.eg.android.AlipayGphone.AlipayLogin'
         desired_caps['noReset']=True
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
@@ -62,17 +58,10 @@ class zhifubao(unittest.TestCase):
         time.sleep(1)
         # f0 = open('D:\\zxtest\\cpay.txt', 'r')#备注
         # z = len(open('D:\\zxtest\\cpay.txt', 'r').readlines())
-        # f1=open('D:\\zxtest\\zhifubao.txt', 'r')#二维码
-        # f1=open('D:\\zxtest\\cpayzhifubao.txt', 'r')#二维码
         sql = "SELECT qrcode_url FROM `cl_merchant_qrcode`where mch_id=1006 and expire_time>0 "
-        # sql="update cl_merchant_qrcode set expire_time=0 where mch_id=1006 and expire_time>0"
         erweimas =query_database(self,sql)
-
-
         for erweima in erweimas:
             # beizhu = f0.readline()
-            # erweima=f1.readline()
-
             print "erweima:%s"%erweima
             if erweima == '':
                 break
@@ -83,7 +72,6 @@ class zhifubao(unittest.TestCase):
             time.sleep(2)
             lianjies=driver.find_elements_by_id("com.alipay.mobile.chatapp:id/chat_msg_text")
             print type(lianjies)
-            # print lianjies
             time.sleep(2)
             lianjies[-1].click()
             time.sleep(5)
@@ -97,8 +85,6 @@ class zhifubao(unittest.TestCase):
             driver.find_element_by_id("com.alipay.mobile.payee:id/payee_NextBtn").click()
             time.sleep(5)
             driver.find_element_by_xpath("//android.widget.TextView[@text='立即付款']").click()
-            # driver.find_element_by_android_uiautomator('new UiSelector().text("立即付款")')
-
             time.sleep(1)
             x=driver.get_window_size()['width']
             y=driver.get_window_size()['height']
@@ -124,9 +110,7 @@ class zhifubao(unittest.TestCase):
             time.sleep(2)
             driver.find_element_by_xpath("//android.widget.TextView[@text='完成']").click()
             time.sleep(1)
-
-
-        # f1.close()
+        # f0.close()
 
     def tearDown(self):
         self.driver.quit()
