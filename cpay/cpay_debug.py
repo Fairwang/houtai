@@ -46,7 +46,7 @@ driver = webdriver.Chrome()
 # driver = webdriver.Chrome(chrome_options=chrome_options)
 # driver.get("http://cpaytest.tinywan.com/index/demo/index.html?debug=true")
 
-driver.get("https://cpay.hypayde.com/index/demo/index.html?debug=true")
+driver.get("https://cpay.hypayde.com/demo.html?debug=true")
 a=driver.switch_to.alert
 a.send_keys("112233")
 a.accept()
@@ -70,7 +70,7 @@ for price in prices:
     driver.find_element_by_name("mch_id").clear()
     driver.find_element_by_name("mch_id").send_keys(1006)
     driver.find_element_by_name("sub_mch_id").clear()
-    driver.find_element_by_name("sub_mch_id").send_keys(6009)
+    driver.find_element_by_name("sub_mch_id").send_keys(6020)
 
     pay_type=Select(driver.find_element_by_id("pay_type"))
     pay_type.select_by_value("5")

@@ -109,7 +109,12 @@ class zhifubao(unittest.TestCase):
             driver.tap([(500*x/1080,1680*y/1920)],0)
             driver.tap([(500*x/1080,1680*y/1920)],0)
             time.sleep(3)
-
+            element02="//android.widget.TextView[@text='银行卡可用余额不足，请选择下列方式完成付款(ALIN37768)']"
+            if iselementexist.isElementExist(self,element02):
+                print "付款账号余额不足，请充值！"
+                time.sleep(3)
+            else:
+                pass
             element="//android.widget.TextView[@text='开通指纹支付']"
             if iselementexist.isElementExist(self,element):
                 driver.find_element_by_xpath("//android.widget.TextView[@text='取消']").click()
