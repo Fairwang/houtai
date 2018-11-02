@@ -54,17 +54,41 @@ class zhifubao(unittest.TestCase):
     def test_zhifubao(self):
         driver = self.driver
         driver.implicitly_wait(5)
-        driver.find_element_by_xpath("//android.widget.FrameLayout[@content-desc='消息']").click()
-        time.sleep(3)
-        driver.implicitly_wait(5)
-        driver.find_element_by_xpath("//android.widget.TextView[@text='y***稀的战队']").click()
-        time.sleep(3)
-        driver.implicitly_wait(5)
-        driver.find_element_by_xpath("//android.view.View[@content-desc='去集能量']").click()
-        driver.implicitly_wait(5)
-        time.sleep(3)
-        print driver.contexts
-        time.sleep(3)
+        # driver.find_element_by_xpath("//android.widget.FrameLayout[@content-desc='消息']").click()
+        # driver.swipe(int(x * 0.25), int(y * 0.25), int(x * 0.97), int(y * 0.25), 5000)
+        # time.sleep(3)
+        # driver.implicitly_wait(5)
+        # driver.find_element_by_xpath("//android.widget.TextView[@text='y***稀的战队']").click()
+        # time.sleep(3)
+        # driver.implicitly_wait(5)
+        # driver.find_element_by_xpath("//android.view.View[@content-desc='去集能量']").click()
+        # driver.implicitly_wait(5)
+        # time.sleep(3)
+        # print driver.contexts
+        # time.sleep(3)
+
+        # x = driver.get_window_size()['width']
+        # y = driver.get_window_size()['height']
+        # driver.swipe(int(x * 0.25), int(y * 0.25), int(x * 0.97), int(y * 0.25), 5000)
+        driver.tap([(500,1026),(600,1089)],2000)
+        time.sleep(10)
+        driver.tap([(420, 1020),(442, 1072)], 2000)#jinru kuanghuanyemian
+        time.sleep(5)
+        driver.tap([(772, 1800),(793, 1826)], 2000)#jinru pingtai
+        time.sleep(2)
+        # driver.tap([(267, 1056),(277.1058)], 500)#xuanze dianpu
+        driver.tap([(734, 1222),(756, 1236)], 2000)#xuanze dianpu
+        time.sleep(2)
+        for i in range(3):
+            driver.tap([(509, 1123),(520, 11343)], 2000)#进入le店铺
+            time.sleep(2)
+            driver.tap([(467, 1375),(488, 1395)], 2000)
+            time.sleep(2)
+            driver.tap([(527, 1812),(549, 1833)], 2000)
+            time.sleep(2)
+        driver.tap([(968, 144),(980, 169)], 2000
+                   )#退出
+        time.sleep(2)
 
     def tearDown(self):
         self.driver.quit()
