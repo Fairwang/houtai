@@ -15,8 +15,8 @@ def isElementExist(element):
         return flag
 driver=webdriver.Chrome()
 # driver.get('https://pay.hongnaga.com/?debug=true')
-driver.get("http://pay.frp.tinywan.top/?debug=true")
-
+# driver.get("http://pay.frp.tinywan.top/?debug=true")
+driver.get("https://pay.hongnaga.com/?debug=true")
 
 # h=driver.current_window_handle
 # print h
@@ -35,7 +35,8 @@ for i in range(1,11):
 # 支付方式
     pay_type=Select(driver.find_element_by_id("pay_type"))
     driver.find_element_by_id("pay_type").click()
-    pay_type.select_by_value("13")
+    pay_type.select_by_value("13")#新支付宝转账
+    pay_type.select_by_value("5")#支付宝h5
 # 金额
     # driver.implicitly_wait(5)
     driver.find_element_by_name("price").clear()#
