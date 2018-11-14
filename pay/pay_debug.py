@@ -37,6 +37,9 @@ for i in range(1,11):
     driver.find_element_by_id("pay_type").click()
     pay_type.select_by_value("13")#新支付宝转账
     pay_type.select_by_value("5")#支付宝h5
+    pay_type.select_by_value("1")  # 网银支付
+    pay_type.select_by_value("15")  # 支付宝扫码
+    pay_type.select_by_value("17")  # 支付宝wap
 # 金额
     # driver.implicitly_wait(5)
     driver.find_element_by_name("price").clear()#
