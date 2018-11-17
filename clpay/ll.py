@@ -13,3 +13,5 @@ b=[u'', u'0\u7b14', u'/', u'23\u7b14']
 print b
 
 print "ss %s %s"%(a,b)
+
+print 888.65-17.5
