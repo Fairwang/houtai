@@ -14,4 +14,4 @@ print b
 
 print "ss %s %s"%(a,b)
 
-print 888.65-17.5
+print 495-22.9+42-0.53

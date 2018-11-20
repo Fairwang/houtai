@@ -12,12 +12,11 @@ import time
 from code.common import table
 
 class cash():
-    def cash(self,amount,acc_name,acc_card,acc_subbranch,pay_password):
+    def cash(self,channel):
         driver = webdriver.Chrome()
         # driver.get('https://testpay.hongnaga.com/merchant.html')
         driver.get("https://pay.hongnaga.com/merchant/login")
         # driver.get('https://cpay.hypayde.com/merchant')
-        # driver.get('http://47.75.86.174:8092/posa/merlogin.jsp')
         # driver.maximize_window()
         driver.find_element_by_id("mch_id").clear()
         driver.find_element_by_id("mch_id").send_keys(12001)
@@ -36,8 +35,14 @@ class cash():
         frame_xpath = driver.find_element_by_xpath("//*[contains(@name,'iframe6')]")
         driver.switch_to.frame(frame_xpath)
 
-        driver.find_element_by_xpath("//*[contains(@onclick,'ids=272')]").click()
+        driver.find_element_by_xpath(channel).click()
     #提现界面
+        amount = 2
+        acc_name = u"付贵炉"
+        acc_card = "6217001540022416380"
+        acc_subbranch = u"中国建设银行"
+        pay_password = "112233"
+
         frame_withdraw = driver.find_element_by_xpath("//*[contains(@id,'layui-layer-iframe1')]")
         driver.switch_to.frame(frame_withdraw)
         # amount=2
@@ -64,14 +69,10 @@ class cash():
         driver.find_element_by_name("btn-block")
 
 
-amount=2
-acc_name=u"付贵炉"
-acc_card="6217001540022416380"
-acc_subbranch=u"中国建设银行"
-pay_password="112233"
 
+channel="//*[contains(@onclick,'ids=272')]"  #DDP 渠道
 a=cash()
-a.cash(amount,acc_name,acc_card,acc_subbranch,pay_password)
+a.cash(channel)
 
 
 

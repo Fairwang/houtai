@@ -26,10 +26,12 @@ class clpay():
         # print h
         # driver.maximize_window()
         a=driver.switch_to.alert
-        a.send_keys("123456778")
+        # a.send_keys("123456778")
+        a.send_keys("112233")
+
         # time.sleep(1)
         a.accept()
-        for i in range(1,11):
+        for i in range(10,30):
             print  i
             driver.implicitly_wait(2)
         #商户ID
@@ -39,15 +41,16 @@ class clpay():
         # 支付方式
             pay_type=Select(driver.find_element_by_id("pay_type"))
             driver.find_element_by_id("pay_type").click()
-            pay_type.select_by_value("13")#新支付宝转账
-            pay_type.select_by_value("5")#支付宝h5
-            pay_type.select_by_value("1")  # 网银支付
+            # pay_type.select_by_value("13")#新支付宝转账
+            # pay_type.select_by_value("5")#支付宝h5
+            # pay_type.select_by_value("1")  # 网银支付
             pay_type.select_by_value("15")  # 支付宝扫码
-            pay_type.select_by_value("17")  # 支付宝wap
+            # pay_type.select_by_value("17")  # 支付宝wap
         # 金额
             # driver.implicitly_wait(5)
+
             driver.find_element_by_name("price").clear()#
-            driver.find_element_by_name("price").send_keys("10")
+            driver.find_element_by_name("price").send_keys(i)
 
         # 银行编码
             driver.find_element_by_xpath("//*[@name='bank_code']").clear()
@@ -76,5 +79,5 @@ class clpay():
                 pass
             time.sleep(3)
 #
-# a=clpay()
-# a.clpay()
+a=clpay()
+a.clpay()
