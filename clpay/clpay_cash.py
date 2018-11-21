@@ -12,7 +12,7 @@ import time
 from code.common import table
 
 class cash():
-    def cash(self,channel):
+    def cash(self,channel,amount):
         driver = webdriver.Chrome()
         # driver.get('https://testpay.hongnaga.com/merchant.html')
         driver.get("https://pay.hongnaga.com/merchant/login")
@@ -37,7 +37,7 @@ class cash():
 
         driver.find_element_by_xpath(channel).click()
     #提现界面
-        amount = 2
+
         acc_name = u"付贵炉"
         acc_card = "6217001540022416380"
         acc_subbranch = u"中国建设银行"
@@ -70,9 +70,9 @@ class cash():
 
 
 
-channel="//*[contains(@onclick,'ids=272')]"  #DDP 渠道
-a=cash()
-a.cash(channel)
+# channel="//*[contains(@onclick,'ids=272')]"  #DDP 渠道
+# a=cash()
+# a.cash(channel)
 
 
 

@@ -14,4 +14,21 @@ print b
 
 print "ss %s %s"%(a,b)
 
-print 495-22.9+42-0.53
+print 379-1.44+65-0.23+216-0.82
+
+a=[1,2]
+b=[1,2]
+if a==b:
+    print "a==b"
+
+def ii():
+    i=1
+    iii=2
+    return [i,iii]
+
+print ii()
+
+c=(1,2)
+d=(1,2)
+if c==d:
+    print "c==d"
