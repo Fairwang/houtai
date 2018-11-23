@@ -10,32 +10,39 @@ from selenium import webdriver
 import time
 
 from code.common import table
-
+from houtai.cpay import isElementExist
 class cash():
+    def __init__(self,driver):
+        self.driver=driver
     def cash(self,channel,amount):
-        driver = webdriver.Chrome()
+        newwindow = 'window.open("https://pay.hongnaga.com/merchant/login")'
+        self.driver.execute_script(newwindow)
+        # 移动句柄，对新打开页面进行操作
+        self.driver.switch_to.window(self.driver.window_handles[3])
+        # driver = webdriver.Chrome()
         # driver.get('https://testpay.hongnaga.com/merchant.html')
-        driver.get("https://pay.hongnaga.com/merchant/login")
+        # driver.get("https://pay.hongnaga.com/merchant/login")
         # driver.get('https://cpay.hypayde.com/merchant')
         # driver.maximize_window()
-        driver.find_element_by_id("mch_id").clear()
-        driver.find_element_by_id("mch_id").send_keys(12001)
-        driver.find_element_by_id("password").clear()
+        
+        self.driver.find_element_by_id("mch_id").clear()
+        self.driver.find_element_by_id("mch_id").send_keys(12001)
+        self.driver.find_element_by_id("password").clear()
         # driver.find_element_by_id("password").send_keys(123456)
-        driver.find_element_by_id("password").send_keys("chilong112233")
-        driver.find_element_by_id("captcha").send_keys(0)
-        driver.find_element_by_id("sub").click()
+        self.driver.find_element_by_id("password").send_keys("chilong112233")
+        # driver.find_element_by_id("captcha").send_keys(0)
+        self.driver.find_element_by_id("sub").click()
         time.sleep(10)
         # 手动输入验证码
-        driver.maximize_window()
+        self.driver.maximize_window()
         time.sleep(2)
-        driver.find_element_by_link_text("账户管理").click()
-        driver.find_element_by_xpath("//*[contains(@data-index,'6')]").click()
+        self.driver.find_element_by_link_text("账户管理").click()
+        self.driver.find_element_by_xpath("//*[contains(@data-index,'6')]").click()
         # 切换到账户管理页面
-        frame_xpath = driver.find_element_by_xpath("//*[contains(@name,'iframe6')]")
-        driver.switch_to.frame(frame_xpath)
+        frame_xpath = self.driver.find_element_by_xpath("//*[contains(@name,'iframe6')]")
+        self.driver.switch_to.frame(frame_xpath)
 
-        driver.find_element_by_xpath(channel).click()
+        self.driver.find_element_by_xpath(channel).click()
     #提现界面
 
         acc_name = u"付贵炉"
@@ -43,36 +50,36 @@ class cash():
         acc_subbranch = u"中国建设银行"
         pay_password = "112233"
 
-        frame_withdraw = driver.find_element_by_xpath("//*[contains(@id,'layui-layer-iframe1')]")
-        driver.switch_to.frame(frame_withdraw)
+        frame_withdraw = self.driver.find_element_by_xpath("//*[contains(@id,'layui-layer-iframe1')]")
+        self.driver.switch_to.frame(frame_withdraw)
         # amount=2
-        driver.find_element_by_name("amount").clear()
-        driver.find_element_by_name("amount").send_keys(amount)
+        self.driver.find_element_by_name("amount").clear()
+        self.driver.find_element_by_name("amount").send_keys(amount)
         # acc_name=u"付贵炉"
-        driver.find_element_by_name("acc_name").clear()
-        driver.find_element_by_name("acc_name").send_keys(acc_name)
+        self.driver.find_element_by_name("acc_name").clear()
+        self.driver.find_element_by_name("acc_name").send_keys(acc_name)
         # acc_card="6217001540022416380"
-        driver.find_element_by_name("acc_card").clear()
-        driver.find_element_by_name("acc_card").send_keys(acc_card)
+        self.driver.find_element_by_name("acc_card").clear()
+        self.driver.find_element_by_name("acc_card").send_keys(acc_card)
         # acc_subbranch=u"中国建设银行"
-        driver.find_element_by_name("acc_subbranch").clear()
-        driver.find_element_by_name("acc_subbranch").send_keys(acc_subbranch)
+        self.driver.find_element_by_name("acc_subbranch").clear()
+        self.driver.find_element_by_name("acc_subbranch").send_keys(acc_subbranch)
         # pay_password="112233"
-        driver.find_element_by_name("pay_password").clear()
-        driver.find_element_by_name("pay_password").send_keys(pay_password)
+        self.driver.find_element_by_name("pay_password").clear()
+        self.driver.find_element_by_name("pay_password").send_keys(pay_password)
 
         # captcha="112233"
         # driver.find_element_by_name("captcha").clear()
         # driver.find_element_by_name("captcha").send_keys(captcha)
 
-        time.sleep(5)
-        driver.find_element_by_name("btn-block")
+        time.sleep(10)
+        self.driver.find_element_by_name("btn-block")
 
 
-
+#
 # channel="//*[contains(@onclick,'ids=272')]"  #DDP 渠道
 # a=cash()
-# a.cash(channel)
+# a.cash(channel,2)
 
 
 

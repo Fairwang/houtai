@@ -11,34 +11,44 @@ import time
 
 
 from code.common import table
-
+from houtai.cpay import isElementExist
 
 class account():
-    def account(self):
-        driver=webdriver.Chrome()
-        driver.get('https://testpay.hongnaga.com/merchant.html')
-        # driver.get("https://pay.hongnaga.com/merchant/login")
-        # driver.get('https://cpay.hypayde.com/merchant')
-        # driver.get('http://47.75.86.174:8092/posa/merlogin.jsp')
-        # driver.maximize_window()
-        driver.find_element_by_id("mch_id").clear()
-        driver.find_element_by_id("mch_id").send_keys(12001)
-        driver.find_element_by_id("password").clear()
-        driver.find_element_by_id("password").send_keys(123456)
-        # driver.find_element_by_id("password").send_keys("chilong123456")
-        driver.find_element_by_id("captcha").send_keys(0)
-        driver.find_element_by_id("sub").click()
-        time.sleep(5)
+    def __init__(self,driver):
+        self.driver=driver
+    def account(self,window):
+        # 浏览器 新窗口打开连接
+        newwindow = 'window.open("https://pay.hongnaga.com/merchant/login")'
+        self.driver.execute_script(newwindow)
+        # 移动句柄，对新打开页面进行操作
+        self.driver.switch_to.window(self.driver.window_handles[window])
+        iselementexist=isElementExist.isElementExist(self.driver)
+        id="mch_id"
+        if iselementexist.isElementExistID(id):
+            # driver=webdriver.Chrome()
+            # # driver.get('https://testpay.hongnaga.com/merchant.html')
+            # driver.get("https://pay.hongnaga.com/merchant/login")
+            # driver.get('https://cpay.hypayde.com/merchant')
+            # driver.get('http://47.75.86.174:8092/posa/merlogin.jsp')
+            # driver.maximize_window()
+            self.driver.find_element_by_id("mch_id").clear()
+            self.driver.find_element_by_id("mch_id").send_keys(12001)
+            self.driver.find_element_by_id("password").clear()
+            self.driver.find_element_by_id("password").send_keys("chilong112233")
+            # driver.find_element_by_id("password").send_keys("chilong123456")
+            self.driver.find_element_by_id("captcha").send_keys(0)
+            self.driver.find_element_by_id("sub").click()
+            time.sleep(10)
         #手动输入验证码
-
+        self.driver.refresh()
         time.sleep(2)
-        driver.find_element_by_link_text("账户管理").click()
-        driver.find_element_by_xpath("//*[contains(@data-index,'6')]").click()
+        self.driver.find_element_by_link_text("账户管理").click()
+        self.driver.find_element_by_xpath("//*[contains(@data-index,'6')]").click()
         #切换到账户管理页面
-        frame_xpath=driver.find_element_by_xpath("//*[contains(@name,'iframe6')]")
-        driver.switch_to.frame(frame_xpath)
+        frame_xpath=self.driver.find_element_by_xpath("//*[contains(@name,'iframe6')]")
+        self.driver.switch_to.frame(frame_xpath)
         time.sleep(1)
-        zhgl=table.get_table(driver)
+        zhgl=table.get_table(self.driver)
         zhgl_table=zhgl.get_table_content("list")
         time.sleep(3)
         zhgl_table=zhgl_table[1:]
@@ -57,7 +67,7 @@ class account():
         z=[]
         for i in range(len(zhsz)):
             for j in zhsz[i]:
-                if j=="XFP":
+                if j=="DDCP":
                 # if j=="DDP":
                     print i
                     z=zhsz[i]
@@ -73,10 +83,11 @@ class account():
         #         print"yes:%s"%zhsz[l][0]
         # else:
         #     print"faile:%s"%zhsz[l][0]
-
-    
-# a=account()
-# t=a.account()
+#
+#
+# driver=webdriver.Chrome()
+# a=account(driver)
+# t=a.account(1)
 # print t
 
 

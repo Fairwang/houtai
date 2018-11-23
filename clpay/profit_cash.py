@@ -9,41 +9,47 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium import webdriver
 import time
 # from array import *
-
 from code.common import table
-
 class profit_cash():
-    def profit_cash(self):
-        driver=webdriver.Chrome()
-        driver.get('https://testpay.hongnaga.com/admin/index/index.html')
+    def __init__(self,driver):
+        self.driver=driver
+    def profit_cash(self,window):
+        # driver=webdriver.Chrome()
+        # # driver.get('https://testpay.hongnaga.com/admin/index/index.html')
+        # driver.get('https://pay.hongnaga.com/admin/index/index.html')
+        newwindow = 'window.open("https://pay.hongnaga.com/admin/index/index.html")'
+        self.driver.execute_script(newwindow)
+        # 移动句柄，对新打开页面进行操作
+        self.driver.switch_to.window(self.driver.window_handles[window])
         # driver.maximize_window()
-        driver.find_element_by_id("username").clear()
-        driver.find_element_by_id("username").send_keys("admin")
-        driver.find_element_by_id("password").clear()
+        self.driver.find_element_by_id("username").clear()
+        self.driver.find_element_by_id("username").send_keys("admin")
+        self.driver.find_element_by_id("password").clear()
         # driver.find_element_by_id("password").send_keys(123456)
-        driver.find_element_by_id("password").send_keys("chilong112233")
-        driver.find_element_by_id("captcha").send_keys(0)
-        driver.find_element_by_id("sub").click()
-        time.sleep(5)
+        # driver.find_element_by_id("password").send_keys("chilong112233")
+        self.driver.find_element_by_id("password").send_keys("cl!@#0571")
+        self.driver.find_element_by_id("captcha").send_keys(0)
+        self.driver.find_element_by_id("sub").click()
+        time.sleep(10)
         #手动输入验证码
 
-        driver.maximize_window()
+        self.driver.maximize_window()
         time.sleep(2)
-        driver.find_element_by_link_text("支付管理").click()
+        self.driver.find_element_by_link_text("支付管理").click()
         time.sleep(2)
-        driver.find_element_by_xpath("//*[contains(@href,'/admin/payment_interface/index.html')]").click()
+        self.driver.find_element_by_xpath("//*[contains(@href,'/admin/payment_interface/index.html')]").click()
         #切换到代付商户页面
-        frame_xpath=driver.find_element_by_xpath("//*[contains(@name,'iframe11')]")
-        driver.switch_to.frame(frame_xpath)
+        frame_xpath=self.driver.find_element_by_xpath("//*[contains(@src,'payment_interface/index.html')]")
+        self.driver.switch_to.frame(frame_xpath)
 
         #选中温州赤龙利润兑现
-        lrdx=driver.find_elements_by_xpath("//a[contains(@onclick,'layeropen')]")
+        lrdx=self.driver.find_elements_by_xpath("//a[contains(@onclick,'layeropen')]")
         lrdx[-1].click()
         #切换到利润兑现界面
-        frame_xpath=driver.find_element_by_xpath("//*[contains(@name,'layui-layer-iframe1')]")
-        driver.switch_to.frame(frame_xpath)
+        frame_xpath=self.driver.find_element_by_xpath("//*[contains(@name,'layui-layer-iframe1')]")
+        self.driver.switch_to.frame(frame_xpath)
 
-        lrdx=driver.find_elements_by_xpath("//h2[contains(@class,'text-success')]")
+        lrdx=self.driver.find_elements_by_xpath("//h2[contains(@class,'text-success')]")
         mfb=lrdx[0].text#获取美付宝
         print mfb
         mfb=mfb.split(' ')#以list切割分成list，将2元 分割为 [2,元] 取出金额
@@ -58,7 +64,7 @@ class profit_cash():
         bfj=bfj[0]
         print u"获取备付金%s"%bfj
 
-        jylr=driver.find_elements_by_xpath("//h2[contains(@class,'text-navy')]")
+        jylr=self.driver.find_elements_by_xpath("//h2[contains(@class,'text-navy')]")
         print  jylr
         jy=jylr[0].text#交易量统计
         print jy
@@ -78,29 +84,30 @@ class profit_cash():
         print u"总利润%s"%zlr
 
 
-        lr=driver.find_elements_by_xpath("//h2[contains(@class,'text-danger')]")
+        lr=self.driver.find_elements_by_xpath("//h2[contains(@class,'text-danger')]")
         print  lr
         lrye=lr[0].text#利润余额
         print lrye
         lrye=lrye.split(' ')
         print lrye
-        lrye=lrye[3]
+        lrye=lrye[2]
         print u"利润余额%s"%lrye
 
-        zdf=driver.find_elements_by_xpath("//h2[contains(@class,'text-warning')]")
-        sfzlr=lr[0].text#代付中的利润
+        dfz=self.driver.find_elements_by_xpath("//h2[contains(@class,'text-warning')]")
+        sfzlr=dfz[0].text#代付中的利润
         print sfzlr
         sfzlr=sfzlr.split(' ')
         print sfzlr
-        sfzlr=sfzlr[3]
+        sfzlr=sfzlr[0]
         print u"代付中的利润%s"%sfzlr
         profit=[]
-        for i in (mfb,bfj,jrjy,jrzjy,zlr):
+        for i in (mfb,bfj,jrjy,jrzjy,zlr,lrye,sfzlr):
             profit.append(i)
+        print profit
         return profit
         # return mfb,bfj,jrjy,jrzjy,zlr
-
-a=profit_cash()
-b=a.profit_cash()
-print "hhhhh%s:"%b
+# 
+# a=profit_cash()
+# b=a.profit_cash()
+# print "hhhhh%s:"%b
 

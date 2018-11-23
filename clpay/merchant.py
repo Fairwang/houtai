@@ -12,38 +12,46 @@ import time
 from code.common import table
 
 class merchant():
-    def cash(self,):
-        driver = webdriver.Chrome()
+    def __init__(self,driver):
+        self.driver=driver
+    def cash(self,window):
+
+        newwindow = 'window.open("https://pay.hongnaga.com/admin/index/index.html")'
+        self.driver.execute_script(newwindow)
+        # 移动句柄，对新打开页面进行操作
+        self.driver.switch_to.window(self.driver.window_handles[window])
+        # driver = webdriver.Chrome()
         # driver.get('https://testpay.hongnaga.com/merchant.html')
-        driver.get("https://pay.hongnaga.com/admin/index/index.html")
-        driver.maximize_window()
-        driver.find_element_by_id("mch_id").clear()
+        # driver.get("https://pay.hongnaga.com/admin/index/index.html")
+        self.driver.maximize_window()
+        self.driver.find_element_by_id("username").clear()
         mch_id="admin"
-        driver.find_element_by_id("mch_id").send_keys(mch_id)
-        driver.find_element_by_id("password").clear()
+        self.driver.find_element_by_id("username").send_keys(mch_id)
+        self.driver.find_element_by_id("password").clear()
         # driver.find_element_by_id("password").send_keys(123456)
-        driver.find_element_by_id("password").send_keys("cl!@#0571")
-        driver.find_element_by_id("captcha").send_keys(0)
-        driver.find_element_by_id("sub").click()
+        self.driver.find_element_by_id("password").send_keys("cl!@#0571")
+        self.driver.find_element_by_id("captcha").send_keys(0)
+        self.driver.find_element_by_id("sub").click()
         time.sleep(10)
         # 手动输入验证码
-        driver.maximize_window()
+        self.driver.maximize_window()
         time.sleep(2)
-        driver.find_element_by_link_text("商户模块").click()
-        driver.find_element_by_xpath("//*[contains(@data-index,'8')]").click()
+        self.driver.find_element_by_link_text("商户模块").click()
+        self.driver.find_element_by_xpath("//*[contains(@data-index,'8')]").click()
         # 切换到账户管理页面
-        frame_xpath = driver.find_element_by_xpath("//*[contains(@name,'iframe8')]")
-        driver.switch_to.frame(frame_xpath)
-        cash=driver.find_element_by_xpath("//*[contains(@onclick,'merchantconfig.html?ids=18482')]")
-        driver.find_element_by_xpath(cash).click()
+        frame_xpath = self.driver.find_element_by_xpath("//*[contains(@name,'iframe8')]")
+        self.driver.switch_to.frame(frame_xpath)
+        cash_xpath="//*[contains(@onclick,'merchantconfig.html?ids=18482')]"
+        self.driver.find_element_by_xpath(cash_xpath).click()
     #代付界面
-        frame_cash = driver.find_element_by_xpath("//*[contains(@id,'layui-layer-iframe2')]")
-        driver.switch_to.frame(frame_cash)
-        beifujin=table.get_table(driver)
+        frame_cash = self.driver.find_element_by_xpath("//*[contains(@src,'merchantconfig.html?ids=18482')]")
+        self.driver.switch_to.frame(frame_cash)
+        beifujin=table.get_table(self.driver)
         beifujin=beifujin.get_table_content("list")
         beifujin=beifujin[1:]
         wclb = beifujin[0][4]
         wcll = beifujin[0][5]
+        # print wclb,wcll
         return [wclb,wcll]
 
 
@@ -51,10 +59,10 @@ class merchant():
 
 
 
-
+#
 # channel="//*[contains(@onclick,'ids=272')]"  #DDP 渠道
-# a=cash()
-# a.cash(channel)
+# a=merchant()
+# a.cash()
 
 
 

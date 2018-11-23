@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 from appium import webdriver
 import time
 import sys
-import iselementexist
+import isElementExist
 
 import MySQLdb
 
@@ -76,7 +76,7 @@ class zhifubao(unittest.TestCase):
             lianjies[-1].click()
             time.sleep(5)
             element01="//android.widget.Button[@text='确认转账']"
-            if iselementexist.isElementExist(self,element01):
+            if isElementExist.isElementExist(self, element01):
                 pass
             else:
                 lianjies[-1].click()
@@ -96,13 +96,13 @@ class zhifubao(unittest.TestCase):
             driver.tap([(500*x/1080,1680*y/1920)],0)
             time.sleep(3)
             element02="//android.widget.TextView[@text='银行卡可用余额不足，请选择下列方式完成付款(ALIN37768)']"
-            if iselementexist.isElementExist(self,element02):
+            if isElementExist.isElementExist(self, element02):
                 print "付款账号余额不足，请充值！"
                 time.sleep(3)
             else:
                 pass
             element="//android.widget.TextView[@text='开通指纹支付']"
-            if iselementexist.isElementExist(self,element):
+            if isElementExist.isElementExist(self, element):
                 driver.find_element_by_xpath("//android.widget.TextView[@text='取消']").click()
                 time.sleep(3)
             else:
