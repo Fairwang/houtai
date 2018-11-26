@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium import webdriver
+from houtai.cpay import isElementExist
 import time
 # from array import *
 from code.common import table
@@ -21,18 +22,21 @@ class profit_cash():
         self.driver.execute_script(newwindow)
         # 移动句柄，对新打开页面进行操作
         self.driver.switch_to.window(self.driver.window_handles[window])
-        # driver.maximize_window()
-        self.driver.find_element_by_id("username").clear()
-        self.driver.find_element_by_id("username").send_keys("admin")
-        self.driver.find_element_by_id("password").clear()
-        # driver.find_element_by_id("password").send_keys(123456)
-        # driver.find_element_by_id("password").send_keys("chilong112233")
-        self.driver.find_element_by_id("password").send_keys("cl!@#0571")
-        self.driver.find_element_by_id("captcha").send_keys(0)
-        self.driver.find_element_by_id("sub").click()
-        time.sleep(10)
+        id="username"
+        iselementexist=isElementExist.isElementExist(self.driver)
+        if iselementexist.isElementExistID(id):
+            # driver.maximize_window()
+            self.driver.find_element_by_id("username").clear()
+            self.driver.find_element_by_id("username").send_keys("admin")
+            self.driver.find_element_by_id("password").clear()
+            # driver.find_element_by_id("password").send_keys(123456)
+            # driver.find_element_by_id("password").send_keys("chilong112233")
+            self.driver.find_element_by_id("password").send_keys("cl!@#0571")
+            self.driver.find_element_by_id("captcha").send_keys(0)
+            self.driver.find_element_by_id("sub").click()
+            time.sleep(10)
         #手动输入验证码
-
+        self.driver.refresh()
         self.driver.maximize_window()
         time.sleep(2)
         self.driver.find_element_by_link_text("支付管理").click()
@@ -107,7 +111,7 @@ class profit_cash():
         return profit
         # return mfb,bfj,jrjy,jrzjy,zlr
 # 
-# a=profit_cash()
-# b=a.profit_cash()
+# a=profit_cash(driver)
+# b=a.profit_cash(2)
 # print "hhhhh%s:"%b
 

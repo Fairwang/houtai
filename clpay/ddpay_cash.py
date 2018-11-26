@@ -14,7 +14,7 @@ from clpay_account import  account
 from code.common import table
 from merchant import merchant
 from profit_cash import profit_cash
-
+import time
 #
 # driver = driver()
 # driver=driver.driver()
@@ -23,32 +23,31 @@ driver = webdriver.Chrome()
 #获取 admin 商户列表中 代付利润提现号中的备付金
 beifu=merchant(driver)
 bf=beifu.cash(1)
-print "bf%s"%bf
-
+print "....bf%s"%bf
+time.sleep(2)
 #获取 admin 代付商户列表中的美付宝利润
 
 meifubao=profit_cash(driver)
 mfb=meifubao.profit_cash(2)
-print "wangyuejuan"
-print "mfb%s"%mfb
-print "aaaaaaaaaaaaaaaaaa"
+print "....mfb%s"%mfb
+time.sleep(2)
 #获取账户管理信息并记录
 a=account(driver)
 a=a.account(3)
-print "a%s"%a
-
+print "....a%s"%a
+time.sleep(2)
 # 提现
 # channel="//*[contains(@onclick,'ids=272')]"  #DDP 渠道
-# channel="//*[contains(@onclick,'cashnew.html?ids=253')]"#XFP 渠道
-channel="//*[contains(@onclick,'cashnew.html?ids=311')]"#DDCP 渠道
-c=cash()
+channel="//*[contains(@onclick,'cashnew.html?ids=253')]"#XFP 渠道
+# channel="//*[contains(@onclick,'cashnew.html?ids=311')]"#DDCP 渠道
+c=cash(driver)
 amount = 2
-c=c.cash(channel,amount)
+c=c.cash(channel,amount,4)
 print "c%s"%c
-
+time.sleep(2)
 #再次获取账户管理信息并记录
-a2=account()
-a2=a2.account()
+a2=account(driver)
+a2=a2.account(5)
 print "a2%s"%a2
 a2[2]=float(a2[2])-7
 a2[3]=float(a2[3])-7
@@ -57,11 +56,12 @@ if a==a2:
     print "account true"
 else:
     print  "account false"
-
+time.sleep(2)
 #再次 获取 admin 商户列表中 代付利润提现号中的备付金
-beifu2=merchant()
-bf2=beifu.cash()
+beifu2=merchant(driver)
+bf2=beifu.cash(4)
 print "bf2%s"%bf2
+
 bf2[0]=float(bf2[0])-7
 bf2[1]=float(bf2[1])+1
 if bf==bf2:
@@ -69,10 +69,10 @@ if bf==bf2:
 else:
     print  "admin 商户列表 false"
 
-
+time.sleep(2)
 #获取 admin中代付列表中的利润
-meifubao=profit_cash()
-mfb2=meifubao.profit_cash()
+meifubao=profit_cash(driver)
+mfb2=meifubao.profit_cash(5)
 print "mfb2%s"%mfb2
 mfb2[0]=float(mfb2[0])-2-2
 mfb2[1]=float(mfb2[1])-7

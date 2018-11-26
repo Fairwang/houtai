@@ -14,32 +14,36 @@ from houtai.cpay import isElementExist
 class cash():
     def __init__(self,driver):
         self.driver=driver
-    def cash(self,channel,amount):
+    def cash(self,channel,amount,window):
         newwindow = 'window.open("https://pay.hongnaga.com/merchant/login")'
         self.driver.execute_script(newwindow)
         # 移动句柄，对新打开页面进行操作
-        self.driver.switch_to.window(self.driver.window_handles[3])
-        # driver = webdriver.Chrome()
-        # driver.get('https://testpay.hongnaga.com/merchant.html')
-        # driver.get("https://pay.hongnaga.com/merchant/login")
-        # driver.get('https://cpay.hypayde.com/merchant')
-        # driver.maximize_window()
-        
-        self.driver.find_element_by_id("mch_id").clear()
-        self.driver.find_element_by_id("mch_id").send_keys(12001)
-        self.driver.find_element_by_id("password").clear()
-        # driver.find_element_by_id("password").send_keys(123456)
-        self.driver.find_element_by_id("password").send_keys("chilong112233")
-        # driver.find_element_by_id("captcha").send_keys(0)
-        self.driver.find_element_by_id("sub").click()
-        time.sleep(10)
+        self.driver.switch_to.window(self.driver.window_handles[window])
+        id="mch_id"
+        iselementexist=isElementExist.isElementExist(self.driver)
+        if iselementexist.isElementExistID(id):
+            # driver = webdriver.Chrome()
+            # driver.get('https://testpay.hongnaga.com/merchant.html')
+            # driver.get("https://pay.hongnaga.com/merchant/login")
+            # driver.get('https://cpay.hypayde.com/merchant')
+            # driver.maximize_window()
+
+            self.driver.find_element_by_id("mch_id").clear()
+            self.driver.find_element_by_id("mch_id").send_keys(12001)
+            self.driver.find_element_by_id("password").clear()
+            # driver.find_element_by_id("password").send_keys(123456)
+            self.driver.find_element_by_id("password").send_keys("chilong112233")
+            # driver.find_element_by_id("captcha").send_keys(0)
+            self.driver.find_element_by_id("sub").click()
+            time.sleep(10)
+        self.driver.refresh()
         # 手动输入验证码
         self.driver.maximize_window()
         time.sleep(2)
         self.driver.find_element_by_link_text("账户管理").click()
-        self.driver.find_element_by_xpath("//*[contains(@data-index,'6')]").click()
-        # 切换到账户管理页面
-        frame_xpath = self.driver.find_element_by_xpath("//*[contains(@name,'iframe6')]")
+        self.driver.find_element_by_xpath("//*[contains(@href,'merchant_account/index.html')]").click()
+        #切换到账户管理页面
+        frame_xpath=self.driver.find_element_by_xpath("//*[contains(@src,'merchant_account/index.html')]")
         self.driver.switch_to.frame(frame_xpath)
 
         self.driver.find_element_by_xpath(channel).click()

@@ -43,9 +43,9 @@ class account():
         self.driver.refresh()
         time.sleep(2)
         self.driver.find_element_by_link_text("账户管理").click()
-        self.driver.find_element_by_xpath("//*[contains(@data-index,'6')]").click()
+        self.driver.find_element_by_xpath("//*[contains(@href,'merchant_account/index.html')]").click()
         #切换到账户管理页面
-        frame_xpath=self.driver.find_element_by_xpath("//*[contains(@name,'iframe6')]")
+        frame_xpath=self.driver.find_element_by_xpath("//*[contains(@src,'merchant_account/index.html')]")
         self.driver.switch_to.frame(frame_xpath)
         time.sleep(1)
         zhgl=table.get_table(self.driver)
