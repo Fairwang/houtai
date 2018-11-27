@@ -16,18 +16,15 @@ from code.common import table
 class merchant():
     def __init__(self,driver):
         self.driver=driver
-    def cash(self,window):
+    def cash(self):
 
         newwindow = 'window.open("https://pay.hongnaga.com/admin/index/index.html")'
         self.driver.execute_script(newwindow)
         # 移动句柄，对新打开页面进行操作
-        self.driver.switch_to.window(self.driver.window_handles[window])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         id="username"
         iselementexist=isElementExist.isElementExist(self.driver)
         if iselementexist.isElementExistID(id):
-            # driver = webdriver.Chrome()
-            # driver.get('https://testpay.hongnaga.com/merchant.html')
-            # driver.get("https://pay.hongnaga.com/admin/index/index.html")
             self.driver.maximize_window()
             self.driver.find_element_by_id("username").clear()
             mch_id="admin"
@@ -41,7 +38,7 @@ class merchant():
         self.driver.refresh()
         # 手动输入验证码
         self.driver.maximize_window()
-        time.sleep(2)
+        time.sleep(5)
         self.driver.find_element_by_link_text("商户模块").click()
         self.driver.find_element_by_xpath("//*[contains(@data-index,'8')]").click()
         # 切换到账户管理页面

@@ -16,21 +16,15 @@ from houtai.cpay import isElementExist
 class account():
     def __init__(self,driver):
         self.driver=driver
-    def account(self,window):
-        # 浏览器 新窗口打开连接
-        newwindow = 'window.open("https://pay.hongnaga.com/merchant/login")'
-        self.driver.execute_script(newwindow)
-        # 移动句柄，对新打开页面进行操作
-        self.driver.switch_to.window(self.driver.window_handles[window])
+    def account(self):
+        newwindow = 'window.open("https://pay.hongnaga.com/merchant/login")'# 浏览器 新窗口打开连接 js语法
+        self.driver.execute_script(newwindow) #调用js
+        self.driver.switch_to.window(self.driver.window_handles[-1])# 移动句柄，对最新打开页面进行操作
         iselementexist=isElementExist.isElementExist(self.driver)
         id="mch_id"
         if iselementexist.isElementExistID(id):
             # driver=webdriver.Chrome()
             # # driver.get('https://testpay.hongnaga.com/merchant.html')
-            # driver.get("https://pay.hongnaga.com/merchant/login")
-            # driver.get('https://cpay.hypayde.com/merchant')
-            # driver.get('http://47.75.86.174:8092/posa/merlogin.jsp')
-            # driver.maximize_window()
             self.driver.find_element_by_id("mch_id").clear()
             self.driver.find_element_by_id("mch_id").send_keys(12001)
             self.driver.find_element_by_id("password").clear()
@@ -40,6 +34,7 @@ class account():
             self.driver.find_element_by_id("sub").click()
             time.sleep(10)
         #手动输入验证码
+        self.driver.maximize_window()
         self.driver.refresh()
         time.sleep(2)
         self.driver.find_element_by_link_text("账户管理").click()
@@ -62,30 +57,18 @@ class account():
                     del zhsz[i][j-k]##删除成功后，j所在list总长度会减1
                     k=k+1
         print"a在这里啊：%s" %zhsz
-        # time.sleep(2)
-
+        #取出xfp所在的的list
         z=[]
         for i in range(len(zhsz)):
             for j in zhsz[i]:
-                if j=="DDCP":
+                if j=="XFP":
                 # if j=="DDP":
                     print i
                     z=zhsz[i]
                     print z
-                #     z.append(zhsz[i][j])
         return z
-        # time.sleep(2)
 
-        # for l in range(len(zhsz)):
-        # l = zhsz[8]
-        # if float(zhsz[l][1])==float(zhsz[l][2])+float(zhsz[l][9]):#总金额=可用余额+手续费
-        #     if float(zhsz[l][2])==float(zhsz[l][3])+float(zhsz[l][5]):#可用余额=可提现金额+待结算金额
-        #         print"yes:%s"%zhsz[l][0]
-        # else:
-        #     print"faile:%s"%zhsz[l][0]
-#
-#
-# driver=webdriver.Chrome()
+## driver=webdriver.Chrome()
 # a=account(driver)
 # t=a.account(1)
 # print t

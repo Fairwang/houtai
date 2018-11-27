@@ -15,25 +15,23 @@ from code.common import table
 from merchant import merchant
 from profit_cash import profit_cash
 import time
-#
-# driver = driver()
-# driver=driver.driver()
+
 driver = webdriver.Chrome()
 
 #获取 admin 商户列表中 代付利润提现号中的备付金
 beifu=merchant(driver)
-bf=beifu.cash(1)
+bf=beifu.cash()
 print "....bf%s"%bf
 time.sleep(2)
 #获取 admin 代付商户列表中的美付宝利润
 
 meifubao=profit_cash(driver)
-mfb=meifubao.profit_cash(2)
+mfb=meifubao.profit_cash()
 print "....mfb%s"%mfb
 time.sleep(2)
 #获取账户管理信息并记录
 a=account(driver)
-a=a.account(3)
+a=a.account()
 print "....a%s"%a
 time.sleep(2)
 # 提现
@@ -42,12 +40,13 @@ channel="//*[contains(@onclick,'cashnew.html?ids=253')]"#XFP 渠道
 # channel="//*[contains(@onclick,'cashnew.html?ids=311')]"#DDCP 渠道
 c=cash(driver)
 amount = 2
-c=c.cash(channel,amount,4)
-print "c%s"%c
+c=c.cash(channel,amount)
+print "提现成功"
+
 time.sleep(2)
 #再次获取账户管理信息并记录
 a2=account(driver)
-a2=a2.account(5)
+a2=a2.account()
 print "a2%s"%a2
 a2[2]=float(a2[2])-7
 a2[3]=float(a2[3])-7
@@ -59,7 +58,7 @@ else:
 time.sleep(2)
 #再次 获取 admin 商户列表中 代付利润提现号中的备付金
 beifu2=merchant(driver)
-bf2=beifu.cash(4)
+bf2=beifu.cash()
 print "bf2%s"%bf2
 
 bf2[0]=float(bf2[0])-7
@@ -72,9 +71,9 @@ else:
 time.sleep(2)
 #获取 admin中代付列表中的利润
 meifubao=profit_cash(driver)
-mfb2=meifubao.profit_cash(5)
+mfb2=meifubao.profit_cash()
 print "mfb2%s"%mfb2
-mfb2[0]=float(mfb2[0])-2-2
+mfb2[0]=float(mfb2[0])-2
 mfb2[1]=float(mfb2[1])-7
 mfb2[2]=float(mfb2[2])+1
 mfb2[3]=float(mfb2[3])

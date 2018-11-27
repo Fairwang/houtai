@@ -14,20 +14,14 @@ from houtai.cpay import isElementExist
 class cash():
     def __init__(self,driver):
         self.driver=driver
-    def cash(self,channel,amount,window):
+    def cash(self,channel,amount):
         newwindow = 'window.open("https://pay.hongnaga.com/merchant/login")'
         self.driver.execute_script(newwindow)
         # 移动句柄，对新打开页面进行操作
-        self.driver.switch_to.window(self.driver.window_handles[window])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         id="mch_id"
         iselementexist=isElementExist.isElementExist(self.driver)
         if iselementexist.isElementExistID(id):
-            # driver = webdriver.Chrome()
-            # driver.get('https://testpay.hongnaga.com/merchant.html')
-            # driver.get("https://pay.hongnaga.com/merchant/login")
-            # driver.get('https://cpay.hypayde.com/merchant')
-            # driver.maximize_window()
-
             self.driver.find_element_by_id("mch_id").clear()
             self.driver.find_element_by_id("mch_id").send_keys(12001)
             self.driver.find_element_by_id("password").clear()
@@ -77,12 +71,14 @@ class cash():
         # driver.find_element_by_name("captcha").send_keys(captcha)
 
         time.sleep(10)
-        self.driver.find_element_by_name("btn-block")
+        self.driver.find_element_by_class_name("btn-block").click()
+        time.sleep(3)
 
 
 #
-# channel="//*[contains(@onclick,'ids=272')]"  #DDP 渠道
-# a=cash()
+# driver=webdriver.Chrome()
+# channel="//*[contains(@onclick,'cashnew.html?ids=253')]"#XFP 渠道
+# a=cash(driver)
 # a.cash(channel,2)
 
 

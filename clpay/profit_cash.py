@@ -9,19 +9,17 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium import webdriver
 from houtai.cpay import isElementExist
 import time
-# from array import *
 from code.common import table
 class profit_cash():
     def __init__(self,driver):
         self.driver=driver
-    def profit_cash(self,window):
+    def profit_cash(self):
         # driver=webdriver.Chrome()
-        # # driver.get('https://testpay.hongnaga.com/admin/index/index.html')
         # driver.get('https://pay.hongnaga.com/admin/index/index.html')
         newwindow = 'window.open("https://pay.hongnaga.com/admin/index/index.html")'
         self.driver.execute_script(newwindow)
         # 移动句柄，对新打开页面进行操作
-        self.driver.switch_to.window(self.driver.window_handles[window])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         id="username"
         iselementexist=isElementExist.isElementExist(self.driver)
         if iselementexist.isElementExistID(id):
@@ -72,7 +70,6 @@ class profit_cash():
         print  jylr
         jy=jylr[0].text#交易量统计
         print jy
-        # jy=jy.split(' ')
         jy=jy.split(u'笔')
 
         print jy
@@ -109,8 +106,7 @@ class profit_cash():
             profit.append(i)
         print profit
         return profit
-        # return mfb,bfj,jrjy,jrzjy,zlr
-# 
+#
 # a=profit_cash(driver)
 # b=a.profit_cash(2)
 # print "hhhhh%s:"%b

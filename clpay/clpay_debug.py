@@ -4,32 +4,26 @@ from selenium import webdriver
 import time
 from selenium.webdriver.support.ui import Select
 #支付demo界面
-class clpay():
-    # def __init__(self,driver):
-    #     self.driver=driver
+class clpay_pay():
+    def __init__(self,driver):
+        self.driver=driver
+    def isElementExist(self,element):
+        flag = True
+        try:
+            self.driver.find_element_by_link_text(element)
+            return flag
+        except:
+            print "none"
+            flag = False
+            return flag
     def clpay(self):
-        def isElementExist(element):
-            flag = True
-            # driver = self.driver
-            try:
-                driver.find_element_by_link_text(element)
-                return flag
-            except:
-                flag = False
-                return flag
         driver=webdriver.Chrome()
         driver.get('https://pay.hongnaga.com/?debug=true')
         # driver.get("http://pay.frp.tinywan.top/?debug=true")
         # driver.get("https://pay.hongnaga.com/?debug=true")
-
-        # h=driver.current_window_handle
-        # print h
-        # driver.maximize_window()
         a=driver.switch_to.alert
         # a.send_keys("123456778")
         a.send_keys("112233")
-
-        # time.sleep(1)
         a.accept()
         for i in range(10,30):
             print  i
@@ -46,9 +40,8 @@ class clpay():
             # pay_type.select_by_value("1")  # 网银支付
             pay_type.select_by_value("15")  # 支付宝扫码
             # pay_type.select_by_value("17")  # 支付宝wap
+            # pay_type.select_by_value("11")  # 商户代付
         # 金额
-            # driver.implicitly_wait(5)
-
             driver.find_element_by_name("price").clear()#
             driver.find_element_by_name("price").send_keys(i)
 
@@ -73,11 +66,15 @@ class clpay():
             driver.switch_to.window(windows[0])
             time.sleep(1)
             zf11="支付完成"
-            if isElementExist(zf11):
+            clpay=clpay_pay(self.driver)
+            if clpay.isElementExist(zf11):
+                print "yes"
                 driver.find_element_by_link_text("支付完成").click()
+                time.sleep(1)
             else:
                 pass
             time.sleep(3)
 #
-a=clpay()
-a.clpay()
+driver=webdriver.Chrome()
+clpay=clpay_pay(driver)
+clpay.clpay()
