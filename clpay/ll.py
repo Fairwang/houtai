@@ -37,29 +37,41 @@ if c==d:
 
 c=[[12,23],[45,56]]
 print  c[0][1]
-driver = webdriver.Chrome()
-#我们先打开一个网页
-driver.get("https://www.zhipin.com/user/login.html")
-#浏览器 新窗口打开连接
-newwindow = 'window.open("https://www.baidu.com")'
-print newwindow
-driver.execute_script(newwindow)
-print driver.window_handles
-# print driver.current_window_handle
-
-#移动句柄，对新打开页面进行操作
-driver.switch_to.window(driver.window_handles[-1])
-print driver.current_window_handle
-#具体操作
-
-driver.find_element_by_id("kw").send_keys("hhh")
-#关闭该新打开的页面
-# driver.close()
-#不关闭，要移动到上一个页面，我们要移动句柄
-driver.switch_to.window(driver.window_handles[0])
+# driver = webdriver.Chrome()
+# #我们先打开一个网页
+# driver.get("https://www.zhipin.com/user/login.html")
+# #浏览器 新窗口打开连接
+# newwindow = 'window.open("https://www.baidu.com")'
+# print newwindow
+# driver.execute_script(newwindow)
+# print driver.window_handles
+# # print driver.current_window_handle
 #
-# from other import chaxunshujuku
-# a=chaxunshujuku.getmsg()
-
-# print  62052.60-(1930000+546.60-1918497)
-
+# #移动句柄，对新打开页面进行操作
+# driver.switch_to.window(driver.window_handles[-1])
+# print driver.current_window_handle
+# #具体操作
+#
+# driver.find_element_by_id("kw").send_keys("hhh")
+# #关闭该新打开的页面
+# # driver.close()
+# #不关闭，要移动到上一个页面，我们要移动句柄
+# driver.switch_to.window(driver.window_handles[0])
+# #
+a=[]
+dd = ['3\n', '2\n']
+for i in dd:
+    print i[:-1]
+print dd
+f1 = open("E:\\zxtest\\ddpush.txt", 'r')
+lines = f1.readlines()  # 读取全部内容 ，并以列表方式返回
+print lines
+# f1 = open("E:\\zxtest\\ddpush.txt", 'r')
+# lines = f1.readlines()      #读取全部内容 ，并以列表方式返回
+# print lines
+# for i in lines:
+#     i[-1]
+# a=[1,2.3]
+# a[-1]
+zz="  1235126412"
+print zz.strip("12")

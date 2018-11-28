@@ -25,8 +25,14 @@ class clpay_pay():
         # a.send_keys("123456778")
         a.send_keys("112233")
         a.accept()
-        for i in range(10,30):
-            print  i
+        f1 = open("E:\\zxtest\\ddpush.txt", 'r')
+        lines = f1.readlines()  # 读取全部内容 ，并以列表方式返回
+        print lines
+
+        for price in lines:
+            price = price[:-1]
+        # for i in range(10,30):
+            print  price
             driver.implicitly_wait(2)
         #商户ID
             driver.find_element_by_xpath("//*[@name='mch_id']").clear()
