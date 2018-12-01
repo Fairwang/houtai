@@ -28,7 +28,7 @@ class clpay_pay():
         f1 = open("E:\\zxtest\\ddpush.txt", 'r')
         lines = f1.readlines()  # 读取全部内容 ，并以列表方式返回
         print lines
-
+        i=1
         for price in lines:
             price = price[:-1]
         # for i in range(10,30):
@@ -45,11 +45,11 @@ class clpay_pay():
             # pay_type.select_by_value("5")#支付宝h5
             # pay_type.select_by_value("1")  # 网银支付
             pay_type.select_by_value("15")  # 支付宝扫码
-            # pay_type.select_by_value("17")  # 支付宝wap
-            # pay_type.select_by_value("11")  # 商户代付
+            pay_type.select_by_value("17")  # 支付宝wap
+            pay_type.select_by_value("11")  # 商户代付
         # 金额
             driver.find_element_by_name("price").clear()#
-            driver.find_element_by_name("price").send_keys(i)
+            driver.find_element_by_name("price").send_keys(price)
 
         # 银行编码
             driver.find_element_by_xpath("//*[@name='bank_code']").clear()
@@ -72,7 +72,7 @@ class clpay_pay():
             driver.switch_to.window(windows[0])
             time.sleep(1)
             zf11="支付完成"
-            clpay=clpay_pay(self.driver)
+            clpay=clpay_pay(driver)
             if clpay.isElementExist(zf11):
                 print "yes"
                 driver.find_element_by_link_text("支付完成").click()
@@ -80,7 +80,10 @@ class clpay_pay():
             else:
                 pass
             time.sleep(3)
-#
+            if i==10:
+                time.sleep(60000)
+            i=i+1
+
 driver=webdriver.Chrome()
 clpay=clpay_pay(driver)
 clpay.clpay()
