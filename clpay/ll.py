@@ -116,44 +116,41 @@ import re
     #         for i in url2:
     #             f1.write(i)
 
-# sc=[]
-# faileurl=[]
-#
-# with open("E:\\zxtest\\lianjie4.txt") as f:
-#     lines=f.readlines()
-#     i=0
-#     for url in lines:
-#         i+=1
-#         url2=url.strip()
-#         # print "url:%s"%url2
-#         r=requests.post(url2,)
-#         # time.sleep(2)
-#         r1=r.text
-#         # print r1
-#         if re.search("page_url",r1):
-#             # print "页面打开成功：%s"%url2
-#             # print r1
-#             r2=r1[-400:-1]#截取
-#             r3=r2.split(',')#分割出title
-#             # print r3
-#             r4=r3[-2].split("'")
-#             # print r4
-#             r5=r4[-2]
-#             # print r5
-#             # url2="u'"+r5+"'"
-#             sc1='<DT><A HREF='+'"'+url2+'"'+">"+r5+"</A>"
-#             sc.append(sc1)
-#         else:
-#             # print "页面打开失败：%s"%url2
-#             faileurl.append(url)
-#         if i==85:
-#             print "faileurl%s"%faileurl
-#             print "sc:%sc"%sc
+sc=[]
+faileurl=[]
+with open("E:\\zxtest\\lianjie4.txt") as f:
+    lines=f.readlines()
+    i=0
+    for url in lines:
+        i+=1
+        url2=url.strip()  #清除字符串尾的\n
+        # print "url:%s"%url2
+        r=requests.post(url2,)
+        # time.sleep(2)
+        r1=r.text#获取post返回界面
+        # print r1
+        if re.search("page_url",r1): #在所有字符串中匹配page_url
+            # print "页面打开成功：%s"%url2
+            # print r1
+            r2=r1[-400:-1]#截取
+            r3=r2.split(',')#分割出title
+            # print r3
+            r4=r3[-2].split("'")#以'作为分割
+            # print r4
+            r5=r4[-2]
+            # print r5
+            # url2="u'"+r5+"'"
+            sc1='<DT><A HREF='+'"'+url2+'"'+">"+r5+"</A>"
+            sc.append(sc1)
+        else:
+            # print "页面打开失败：%s"%url2
+            faileurl.append(url)
+        if i==85:
+            print "faileurl%s"%faileurl
+            print "sc:%sc"%sc
 
 
 sc=[u'<DT><A HREF="https://www.cnblogs.com/shamo89/p/9032371.html">jmeter\u63a5\u53e3\u6d4b\u8bd5\u62a5java.net.SocketException: Socket closed\u9519\u8bef\u3002 - \u90a3\u5565\u5feb\u770b - \u535a\u5ba2\u56ed</</A>', u'<DT><A HREF="https://testerhome.com/topics/12474">TesterHome</</A>', u'<DT><A HREF="https://www.cnblogs.com/imlvbu/p/7127940.html">\u3010\u4eb2\u6d4b\u3011appium_v1.4.16\u7248\u672c\u81ea\u52a8\u5316\u9002\u914dandroid7.0\u7cfb\u7edf - imlvbu - \u535a\u5ba2\u56ed</</A>', u'<DT><A HREF="https://www.cnblogs.com/windhome/p/7615251.html">appium\u542f\u52a8\u8fd0\u884clog\u5206\u6790 - \u98ce\u541f\u7684\u5c0f\u5c4b - \u535a\u5ba2\u56ed</</A>', u'<DT><A HREF="https://www.cnblogs.com/fnng/p/8486863.html">uiautomator2 \u4f7f\u7528Python\u6d4b\u8bd5 Android\u5e94\u7528 - \u866b\u5e08 - \u535a\u5ba2\u56ed</</A>', u'<DT><A HREF="http://www.cnblogs.com/fnng/p/5370433.html">\u5173\u4e8e\u81ea\u52a8\u5316\u6d4b\u8bd5\u7684\u8bef\u533a(\u4e00) - \u866b\u5e08 - \u535a\u5ba2\u56ed</</A>', u'<DT><A HREF="https://www.cnblogs.com/rookie-c/p/5755093.html">web\u6d4b\u8bd5\u4e0eapp\u6d4b\u8bd5\u7684\u533a\u522b - Rookie_C - \u535a\u5ba2\u56ed</</A>', u'<DT><A HREF="https://www.cnblogs.com/xueweihan/p/5207959.html">[python]decimal\u5e38\u7528\u64cd\u4f5c\u548c\u9700\u8981\u6ce8\u610f\u7684\u5730\u65b9 - \u524a\u5fae\u5bd2 - \u535a\u5ba2\u56ed</</A>', u'<DT><A HREF="https://www.cnblogs.com/rookie-c/p/5755093.html">web\u6d4b\u8bd5\u4e0eapp\u6d4b\u8bd5\u7684\u533a\u522b - Rookie_C - \u535a\u5ba2\u56ed</</A>', u'<DT><A HREF="http://bbs.tianya.cn/post-itinfo-437263-1.shtml">APP\u6d4b\u8bd5\u600e\u4e48\u505a\uff0cAPP\u6d4b\u8bd5\u7684\u6700\u4f73\u65b9\u6cd5(\u8f6c\u8f7d)_\uff29\uff34\u89c6\u754c_\u8bba\u575b_\u5929\u6daf\u793e\u533a</</A>']
-
-
 for i in sc:
     print i
 

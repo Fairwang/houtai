@@ -16,7 +16,7 @@ class clpay1():
         except:
             flag = False
             return flag
-    def clpay(self):
+    def clpay(self,account_id,bank_code,bank_name,username,card_no):
         # self.driver=webdriver.Chrome()
         # self.driver.get('https://pay.hongnaga.com/?debug=true')
 
@@ -28,12 +28,12 @@ class clpay1():
         a.send_keys("123456778")
         a.accept()
 
-        prices=[30,10,15,20]
+        prices=[5]
         for price in prices:
             self.driver.implicitly_wait(2)
         #商户ID
             self.driver.find_element_by_xpath("//*[@name='mch_id']").clear()
-            self.driver.find_element_by_xpath("//*[@name='mch_id']").send_keys("12001")
+            self.driver.find_element_by_xpath("//*[@name='mch_id']").send_keys("18365")
 
         # 支付方式
             pay_type=Select(self.driver.find_element_by_id("pay_type"))
@@ -45,18 +45,22 @@ class clpay1():
             self.driver.find_element_by_name("price").send_keys(price)
         #代理商id
             self.driver.find_element_by_name("account_id").clear()
-            self.driver.find_element_by_name("account_id").send_keys("201806")
+            self.driver.find_element_by_name("account_id").send_keys(account_id)
 
         # 银行编码
             self.driver.find_element_by_xpath("//*[@name='bank_code']").clear()
-            self.driver.find_element_by_xpath("//*[@name='bank_code']").send_keys("01050000")
+            self.driver.find_element_by_xpath("//*[@name='bank_code']").send_keys(bank_code)
+            # 银行信息
+            self.driver.find_element_by_xpath("//*[@name='bank_name']").clear()
+            self.driver.find_element_by_xpath("//*[@name='bank_name']").send_keys(bank_name)
+
 
         # 姓名
             self.driver.find_element_by_xpath("//*[@name='username']").clear()
-            self.driver.find_element_by_xpath("//*[@name='username']").send_keys(u"付贵炉")#UnicodeDecodeError: 'utf8' codec can't decode byte 0xe4 in position 0: unexpected end of data
+            self.driver.find_element_by_xpath("//*[@name='username']").send_keys(username)#UnicodeDecodeError: 'utf8' codec can't decode byte 0xe4 in position 0: unexpected end of data
         # 银行卡号
             self.driver.find_element_by_xpath("//*[@name='card_no']").clear()
-            self.driver.find_element_by_xpath("//*[@name='card_no']").send_keys("6217001540022416380")
+            self.driver.find_element_by_xpath("//*[@name='card_no']").send_keys(card_no)
 
             time.sleep(2)
             self.driver.find_element_by_id("pay").click()
@@ -77,5 +81,30 @@ class clpay1():
 
 driver=webdriver.Chrome()
 daifu=clpay1(driver)
-daifu.clpay()
+account_id="201801"
+bank_code="01050000"
+bank_name=u"中国建设银行"
+username=u"贵炉"
+card_no="6217001540022416380"
+daifu.clpay(account_id,bank_code,bank_name,username,card_no)
 time.sleep(1000)
+
+# driver=webdriver.Chrome()
+# daifu=clpay1(driver)
+# account_id="201806"
+# bank_code="01050000"
+# bank_name=u"工商银行"
+# username=u"丁双"
+# card_no="6222031203005565673"
+# daifu.clpay(account_id,bank_code,bank_name,username,card_no)
+# time.sleep(1000)
+
+# driver=webdriver.Chrome()
+# daifu=clpay1(driver)
+# account_id="201801"
+# bank_code="01050000"
+# bank_name=u"中国工商银行"
+# username=u"丁双"
+# card_no="6217001540022416380"
+# daifu.clpay(account_id,bank_code,bank_name,username,card_no)
+# time.sleep(1000)
