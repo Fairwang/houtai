@@ -91,7 +91,7 @@ class zhifubao(unittest.TestCase):
                 print"宝箱"
                 a=get_toast.get_toast(self.driver)
                 # driver.tap([(262, 1058), (500, 1065)], 2000)
-                time.sleep(2)
+                time.sleep(5)
                 adb5 = 'adb shell input tap 400 1356'#进入包厢界面
                 os.system(adb5)
                 print"第一次"
