@@ -1,6 +1,6 @@
 #!user/bin/python
 # coding:utf-8
-import time, json, urllib, hashlib, requests
+import time, json, urllib, hashlib, requests,urllib2
 from selenium import webdriver
 
 
@@ -14,16 +14,19 @@ def request_pay(api_name, content):
         'content': json.dumps(content),
         'mch_id': mch_id
     }
-
-    sign_str = sign(datas)
+    sign_str = sign(**datas)
     if not sign_str:
         return '验签失败'
     datas['sign'] = sign_str
-    print(datas)
-    datas_encode = urllib.urlencode(datas).encode('utf-8')  # 中文转换url编码 加密 urlencode 不能对string进行传值
-    print(datas_encode)
-    # return  1
-    result = requests.post(gate_way_url,data=datas_encode)
+    print"datas%s"%(datas)
+    datas_encode = urllib.urlencode(datas) # 中文转换url编码 只对dict 有效
+    print datas_encode
+    # driver=webdriver.Chrome()
+    # driver.get(gate_way_url+datas_encode)
+    # url=datas_encode
+    result=urllib2.urlopen(gate_way_url+"?"+datas_encode)
+    # result = requests.post(gate_way_url,data=datas_encode)
+    # result = requests.get(gate_way_url,datas_encode)
     return result.text
 
 # 判断参数param中是否含有sign值，有则删除，重新添加
@@ -31,14 +34,14 @@ def request_pay(api_name, content):
 # 将连接好后的list中的[a=1,b=2]连接成字符串a=1&b+2,将商户秘钥连接上去
 # 使用md5将字符串进行
 
-def sign(params):
-    if 'sign' in params:
-        del params['sign']
+def sign(**kw):
+    if 'sign' in kw:
+        del kw['sign']
     key = '0d8cee92eed880b379fde0b78cbdc173'  # 商户密钥
-    keys = sorted(params)  # 排序 得出list
+    keys = sorted(kw)  # 排序 得出list
     a_list = []
     for i in keys:
-        a_list.append("%s=%s" % (i, params[i]))
+        a_list.append("%s=%s" % (i, kw[i]))
     # print '%s' % a_list
     sign_str2 = '&'.join(a_list) + '&key=' + key
     # print "Sign Str : "+sign_str2
