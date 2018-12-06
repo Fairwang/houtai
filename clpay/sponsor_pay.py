@@ -29,7 +29,7 @@ class clpay1():
         a.accept()
         prices=[]
         for i in range(200):
-            if i%2==0:
+            if i%6==0:
                 prices.append(i)
         print prices
         i=0
