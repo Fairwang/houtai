@@ -19,15 +19,19 @@ def request_pay(api_name, content):
         return '验签失败'
     datas['sign'] = sign_str
     print"datas%s"%(datas)
-    datas_encode = urllib.urlencode(datas) # 中文转换url编码 只对dict 有效
-    print datas_encode
-    # driver=webdriver.Chrome()
-    # driver.get(gate_way_url+datas_encode)
-    # url=datas_encode
-    result=urllib2.urlopen(gate_way_url+"?"+datas_encode)
-    # result = requests.post(gate_way_url,data=datas_encode)
-    # result = requests.get(gate_way_url,datas_encode)
+    #方法一：
+    result = requests.post(gate_way_url,data=datas) #requests 模块发起请求时，url 不需要进行编码
     return result.text
+    #方法二：
+    # datas_encode = urllib.urlencode(datas) # 中文转换url编码 只对dict 有效
+    # print datas_encode
+    # result=urllib2.Request(url=gate_way_url,data=datas_encode)
+    # print "%s"%result
+    # result_data=urllib2.urlopen(result)
+    # r=result_data.read()
+    # print r
+    # print result.headers
+
 
 # 判断参数param中是否含有sign值，有则删除，重新添加
 # 将paramlist重新排序，将排序后的的值取出后，使用= 将key和values连接
@@ -51,7 +55,7 @@ def sign(**kw):
 
 api_name = 'shop.payment.aliH5'
 datas = {
-    'total_fee': 1,
+    'total_fee': 100,
     'goods': '支付宝-H5',
     'order_sn': int(time.time()),
     'client': 'web',
@@ -60,4 +64,11 @@ datas = {
 }
 
 r2 = request_pay(api_name, datas)
-print(r2)
+print type(r2)
+r3=json.loads(r2)#转化 为dict
+
+driver = webdriver.Chrome()
+driver.get(r3['data']['pay_url'])
+
+
+# driver.get(url)
