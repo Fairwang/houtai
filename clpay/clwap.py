@@ -23,18 +23,20 @@ class clh5(unittest.TestCase):
 
     def test_h5(self):
         time.sleep(5)
-        # self.driver.get('https://testpay.hongnaga.com/?debug=true')
-        self.driver.get('https://pay.hongnaga.com/?debug=true')
+        self.driver.get('https://testpay.hongnaga.com/?debug=true')
+        # self.driver.get('https://pay.hongnaga.com/?debug=true')
         time.sleep(3)
         a=self.driver.switch_to.alert
-        # a.send_keys("123456778")
-        a.send_keys("112233")
+        a.send_keys("123456778")
+        # a.send_keys("112233")
         a.accept()
         # self.driver.find_element_by_id('com.android.chrome:id/js_modal_dialog_prompt').send_keys('112233')
         # self.driver.find_element_by_id('android:id/button1').click()
         time.sleep(2)
-        lines = [80,60, 102]
+        lines = [12]
         i = 1
+        handles = self.driver.window_handles
+        print handles
         for price in lines:
             print  price
             # 商户ID
@@ -43,12 +45,7 @@ class clh5(unittest.TestCase):
             # 支付方式
             pay_type = Select(self.driver.find_element_by_id("pay_type"))
             self.driver.find_element_by_id("pay_type").click()
-            # pay_type.select_by_value("13")#新支付宝转账
-            pay_type.select_by_value("5")#支付宝h5
-            # pay_type.select_by_value("7")  # 微信H5
-            # pay_type.select_by_value("17")  # 支付宝wap
-            # pay_type.select_by_value("11")  # 商户代付
-
+            pay_type.select_by_value("6")#银联wap
             # 金额
             self.driver.find_element_by_name("price").clear()  #
             self.driver.find_element_by_name("price").send_keys(price)
@@ -61,10 +58,54 @@ class clh5(unittest.TestCase):
             # 银行卡号
             # driver.find_element_by_xpath("//*[@name='card_no']").clear()
             # driver.find_element_by_xpath("//*[@name='card_no']").send_keys("6217001540022416380")
-            # time.sleep(2)
+            time.sleep(2)
             self.driver.find_element_by_id("pay").click()
-            time.sleep(60)
-            if i == 3:
+            time.sleep(8)
+            windows=self.driver.window_handles
+            print windows  #[u'CDwindow-0', u'CDwindow-1']
+            current=self.driver.current_window_handle
+            time.sleep(1)
+            print current
+            for faster in windows:
+                if faster !=current:
+
+            # self.driver.switch_to.window(current)
+                    self.driver.switch_to.window(faster)  # 返回发起界面
+            print "yes"
+            time.sleep(1)
+            self.driver.find_element_by_class_name("uns_btn").click()
+            # self.driver.find_element_by_xpath("/html/body/div[1]/div[3]/div/p[2]").click()
+            # self.driver.find_element_by_xpath("//*[@class_name='uns_btn']").click()
+            time.sleep(1)
+            self.driver.find_element_by_id("IDcard").send_keys("6228480218885139970")#卡号
+            time.sleep(1)
+
+            self.driver.find_element_by_id("btnSumbit").click()
+            time.sleep(1)
+            username=u"高攀"
+            self.driver.find_element_by_id("username").send_keys(username)
+            time.sleep(1)
+
+            self.driver.find_element_by_name("idCardNo").send_keys("610481198608265032")
+            time.sleep(1)
+
+            self.driver.find_element_by_name("phone").send_keys("13772157150")
+            time.sleep(1)
+
+            self.driver.find_element_by_id("agree").click()
+            time.sleep(1)
+
+            self.driver.find_element_by_id("btnSumbit").click()
+            time.sleep(6)
+            #发送验证码，输入验证码
+            self.driver.find_element_by_id("btnSumbit").click()
+
+
+
+
+
+
+            if i == 1:
                 time.sleep(60000)
             i = i + 1
 
