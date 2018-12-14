@@ -4,13 +4,14 @@ from selenium import webdriver
 import time
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import  Keys
-from houtai.clpay.common import iselementexist
+from houtai.clpay.common import isElementExist
 #电脑端--支付demo界面--赤龙--银联wap--银生宝
 
 class yinlian_web():
     def yinlian_web(self):
         driver = webdriver.Chrome()
         driver.get('https://testpay.hongnaga.com/?debug=true')
+
         # driver.get('https://pay.hongnaga.com/?debug=true')
         time.sleep(3)
         a= driver.switch_to.alert
@@ -19,7 +20,7 @@ class yinlian_web():
         a.accept()
         time.sleep(2)
         zf01 = "支付方式"
-        iselement01 = iselementexist.isElementExist(driver)
+        iselement01 = isElementExist.isElementExist(driver)
         if iselement01.isElementExistLink(iselement01):
             print "支付方式"
 
@@ -56,9 +57,8 @@ class yinlian_web():
             current=driver.current_window_handle
             time.sleep(1)
             print current
-            for latest in windows:
-                if latest !=current:
-                        driver.switch_to.window(latest)  # 返回发起界面
+
+            driver.switch_to.window(windows[-1])  # 返回发起界面
             print "yes"
             time.sleep(1)
             driver.find_element_by_class_name("uns_btn").click()
@@ -93,7 +93,7 @@ class yinlian_web():
             driver.switch_to.window(windows[0])
             time.sleep(1)
             zf11 = "支付完成"
-            iselement01=iselementexist.isElementExist(driver)
+            iselement01=isElementExist.isElementExist(driver)
             if iselement01.isElementExistLink(zf11):
                 print "支付完成元素存在"
                 driver.find_element_by_link_text("支付完成").click()

@@ -6,7 +6,7 @@ import unittest
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from appium import webdriver
-from houtai.clpay.common import iselementexist
+from houtai.clpay.common import isElementExist
 #手机端--支付demo界面--赤龙--银联wap--银生宝
 class yinlian(unittest.TestCase):
     def setUp(self):
@@ -17,20 +17,20 @@ class yinlian(unittest.TestCase):
         desired_caps['browserName']='Chrome'
         desired_caps['appPackage']='com.android.chrome'#被测应用的包名（只有Android测试才用）
         desired_caps['appActivity']='org.chromium.chrome.browser.ChromeTabbedActivity'
-        # desired_caps['unicodeKeyboard']='true'#支持中文输入，默认false
-        # desired_caps['resetKeyboard'] = 'true'  # 重置输入法为系统默认
+        desired_caps['unicodeKeyboard']='true'#支持中文输入，默认false
+        desired_caps['resetKeyboard'] = 'true'  # 重置输入法为系统默认
         desired_caps['noReset']='true'
         self.driver=webdriver.Remote('http://localhost:4723/wd/hub',desired_caps)
 
     def test_yinlian(self):
         time.sleep(5)
         # driver=webdriver.Chrome()  chrome已经作为APP启动了
-        # self.driver.get('https://testpay.hongnaga.com/?debug=true')
-        self.driver.get('https://pay.hongnaga.com/?debug=true')
+        self.driver.get('https://testpay.hongnaga.com/?debug=true')
+        # self.driver.get('https://pay.hongnaga.com/?debug=true')
         time.sleep(3)
         a = self.driver.switch_to.alert
-        # a.send_keys("123456778")
-        a.send_keys("112233")
+        a.send_keys("123456778")
+        # a.send_keys("112233")
         a.accept()
         time.sleep(2)
         lines = [11, 16, 13]
@@ -63,9 +63,9 @@ class yinlian(unittest.TestCase):
             # print "current%s "%current
             #
             # print windows[-1].encode("utf-8")
-            # print type(windows[-1].encode("utf-8"))
-            # self.driver.switch_to.window(windows[-1].encode("utf-8"))  # 返回发起界面
-            self.driver.switch_to.active_element.click()
+            print type(windows[-1])
+            self.driver.switch_to.window(windows[-1])  # 返回发起界面
+            # self.driver.switch_to.active_element()
             print "web switch success"
             time.sleep(1)
             self.driver.find_element_by_class_name("uns_btn").click()#风险提示
@@ -98,7 +98,7 @@ class yinlian(unittest.TestCase):
             self.driver.switch_to.window(windows[0])
             time.sleep(1)
             zf11 = "支付完成"
-            iselement01 = iselementexist.isElementExist(self.driver)
+            iselement01 = isElementExist.isElementExist(self.driver)
             if iselement01.isElementExistLink(zf11):
                 print "支付完成元素存在"
                 self.driver.find_element_by_link_text("支付完成").click()
