@@ -30,7 +30,7 @@ from selenium.webdriver.common.by import By
 from appium import webdriver
 import time
 import sys
-from houtai.lk import iselementexist
+from houtai.common import iselementexist
 from jiandian.common import get_toast
 
 class zhifubao(unittest.TestCase):
