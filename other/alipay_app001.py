@@ -2,6 +2,7 @@
 #  -*-coding: utf-8-*-
 import unittest
 import time
+import uiautomator2
 from appium import webdriver
 import time
 import random
@@ -13,7 +14,12 @@ class zhifubao(unittest.TestCase):
         desired_caps['deviceName'] = '192.168.1.118:5555'
         # desired_caps['deviceName'] = '33d04c7c'
         # desired_caps['platfromVersion']='8.0.0'
-        # desired_caps['deviceName']='73EBB18629223414'
+        # desired_caps['deviceName']='192.168.1.152:5555'
+        # desired_caps['deviceName']="73EBB18629223414"
+        # desired_caps['deviceName']="192.168.1.160:5555"#魅蓝色 m1
+        # desired_caps['deviceName']="79AEALD2A8C7"
+        # desired_caps['platfromVersion']="4.4.4"
+        # desired_caps['noSign']='True'
         desired_caps['appPackage'] = 'com.eg.android.AlipayGphone'
         # desired_caps['automationName'] = 'uiautomator2'  ##############
         desired_caps['appActivity'] = 'com.eg.android.AlipayGphone.AlipayLogin'

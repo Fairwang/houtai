@@ -36,7 +36,7 @@ class clpay_pay():
         i=1
         # for price in lines:
         while 1:
-            price =random.randint(50,100)
+            price =random.randint(50,75)
             # price = price[:-1]#从文本中取出后删除其\n标志
         # for i in range(10,30):
             print  price
@@ -89,7 +89,7 @@ class clpay_pay():
             else:
                 pass
             time.sleep(3)
-            if i==6:
+            if i==15:
                 time.sleep(60000)
             i=i+1
 
