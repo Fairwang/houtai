@@ -39,7 +39,7 @@ class zhifubao(unittest.TestCase):
         time.sleep(3)
         self.driver.find_element_by_xpath("//android.widget.TextView[@text='密码登录']").click()
         time.sleep(5)
-        password="ymxx158"
+        password=""
         x=1080
         y=1920
         self.driver.tap([(593.5*x/1080, 1344.3*y/1920)], 0)

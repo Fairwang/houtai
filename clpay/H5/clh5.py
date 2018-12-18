@@ -5,6 +5,7 @@ import time
 import unittest
 from selenium.webdriver.support.ui import Select
 from appium import webdriver
+import random
 #支付demo界面
 class clh5(unittest.TestCase):
     def setUp(self):
@@ -16,8 +17,8 @@ class clh5(unittest.TestCase):
         desired_caps['noReset']='true'
         desired_caps['appPackage']='com.android.chrome'#被测应用的包名（只有Android测试才用）
         desired_caps['appActivity']='org.chromium.chrome.browser.ChromeTabbedActivity'
-        desired_caps['unicodeKeyboard']='true'#支持中文输入，默认false
-        desired_caps['resetKeyboard'] = 'true'  # 重置输入法为系统默认
+        # desired_caps['unicodeKeyboard']='true'#支持中文输入，默认false
+        # desired_caps['resetKeyboard'] = 'true'  # 重置输入法为系统默认
         desired_caps['noReset']='true'
         self.driver=webdriver.Remote('http://localhost:4723/wd/hub',desired_caps)
 
@@ -33,10 +34,12 @@ class clh5(unittest.TestCase):
         # self.driver.find_element_by_id('com.android.chrome:id/js_modal_dialog_prompt').send_keys('112233')
         # self.driver.find_element_by_id('android:id/button1').click()
         time.sleep(2)
-        lines = [80,60, 102]
+        # lines = [80,60, 102]
         i = 1
-        for price in lines:
-            print  price
+        # for price in lines:
+        while 1 :
+            # print  price
+            price=random.randint(50,100)
             # 商户ID
             self.driver.find_element_by_xpath("//*[@name='mch_id']").clear()
             self.driver.find_element_by_xpath("//*[@name='mch_id']").send_keys("12001")

@@ -3,6 +3,7 @@
 from selenium import webdriver
 import time
 from selenium.webdriver.support.ui import Select
+import random
 #支付demo界面
 class clpay_pay():
     def __init__(self,driver):
@@ -19,21 +20,23 @@ class clpay_pay():
     def clpay(self):
         driver=webdriver.Chrome()
 
-        driver.get('https://testpay.hongnaga.com/?debug=true')
+        # driver.get('https://testpay.hongnaga.com/?debug=true')
         # driver.get("https://pay.sunspay.com/?debug=true")
-        # driver.get("https://pay.hongnaga.com/?debug=true")
+        driver.get("https://pay.hongnaga.com/?debug=true")
         a=driver.switch_to.alert
-        a.send_keys("123456778")
-        # a.send_keys("112233")
+        # a.send_keys("123456778")
+        a.send_keys("112233")
         a.accept()
         # f1 = open("E:\\zxtest\\ddpush.txt", 'r')
         # lines = f1.readlines()  # 读取全部内容 ，并以列表方式返回
         # print lines
         # for i in range(100):
 
-        lines=[5,50,100,50,60,125]
+        # lines=[5,50,100,50,60,125]
         i=1
-        for price in lines:
+        # for price in lines:
+        while 1:
+            price =random.randint(50,100)
             # price = price[:-1]#从文本中取出后删除其\n标志
         # for i in range(10,30):
             print  price
@@ -49,7 +52,7 @@ class clpay_pay():
             # pay_type.select_by_value("5")#支付宝h5
             # pay_type.select_by_value("1")  # 网银支付
             # pay_type.select_by_value("15")  # 支付宝扫码
-            # pay_type.select_by_value("17")  # 支付宝wap
+            pay_type.select_by_value("17")  # 支付宝wap
             # pay_type.select_by_value("11")  # 商户代付
             # pay_type.select_by_value("3")  # QQ扫码
             # pay_type.select_by_value("16")  # 微信扫码
