@@ -50,7 +50,7 @@ class creat_page(base_page.BaseAaction):
         self.send_keys(app_name,*self.app_name_loc)
 
     def edit_app_key(self,app_key):
-         self.send_keys(*self.app_key_loc)
+         self.send_keys(app_key,*self.app_key_loc)
 
 
 

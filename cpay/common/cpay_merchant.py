@@ -9,10 +9,10 @@ from selenium.webdriver.common.action_chains import ActionChains
 from houtai.cpay.LK import creat_page
 from selenium import webdriver
 import time
-from houtai.clpay.common import isElementExist
-
-from code.common import table
-
+from houtai.cpay.common import isElementExist
+from houtai.cpay.common import table
+#cpay C2C app账号 编辑/添加app账号
+#添加app应用名称/密码，绑定支付宝号/状态，并保存
 class merchant():
     def __init__(self,driver):
         self.driver=driver
@@ -46,18 +46,36 @@ class merchant():
         #切换至编辑账号界面
         self.creat_page.edit_iframe()
     #编辑APP应用列表界面界面
-        name="app05"
-        key="123456"
-        self.creat_page.edit_name(name)
-        self.creat_page.edit_app_key(key)
-        chosens=self.driver.find_elements_by_class_name("chosen-single")
+        name1="app05"
+        key1="123456"
+        self.creat_page.edit_name(name1)
+        self.creat_page.edit_app_key(key1)
+        chosens=self.driver.find_elements_by_class_name("chosen-single")#选择需要绑定的支付宝号
         chosens[0].click()
-        self.driver.find_element_by_xpath("//*[contains(@data-option-array-index,'4')]").click()
-        chosens[1].click()
-        self.driver.find_element_by_xpath()
-        self.driver.find_element_by_id("sub")
+        # self.driver.find_element_by_xpath("//*[contains(@data-option-array-index,'4')]").click()
+        # chosens[1].click()
+        state=self.driver.find_elements_by_class_name("iCheck-helper")
+        state[0].click()#禁用
+        self.driver.find_element_by_id("sub")#点击提交
         self.driver.switch_to.parent_content()
-        self.driver.find_element_by_xpath("//*[contains(@layeropen,'merchant_app/create.html')]").click()
+        # self.driver.find_element_by_xpath("//*[contains(@layeropen,'merchant_app/create.html')]").click()
+        #对比添加的设置是否正确
+        table_id="list"
+        app_tables=table.get_table(driver)
+        app_tables=app_tables.get_table_content(table_id)
+        try:
+            app_tables[1][1]=name1
+            app_tables[1][2]=key1
+            app_tables[1][3]=chosens[0].text
+            app_tables[1][6]=state[0].text
+        except AttributeError:
+            print "添加的信息错误"
+
+
+
+
+
+
 
 
 
