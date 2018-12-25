@@ -15,7 +15,7 @@ class clh5(unittest.TestCase):
         desired_caps['deviceName']='33d04c7c'#测试机器的名称（设备名称即可）
         desired_caps['browserName']='Chrome'
         desired_caps['noReset']='true'
-        desired_caps['appPackage']='com.android.chrome'#被测应用的包名（只有Android测试才用）
+        # desired_caps['appPackage']='com.android.chrome'#被测应用的包名（只有Android测试才用）
         desired_caps['appActivity']='org.chromium.chrome.browser.ChromeTabbedActivity'
         # desired_caps['unicodeKeyboard']='true'#支持中文输入，默认false
         # desired_caps['resetKeyboard'] = 'true'  # 重置输入法为系统默认

@@ -34,6 +34,8 @@ desired_caps6['appActivity'] = 'com.eg.android.AlipayGphone.AlipayLogin'
 desired_caps6['noReset'] = True
 
 def task1():
+    url="https: // cpay.hypayde.com / t_q_code?id = "
+    
     driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
     # time.sleep(3
     driver.find_element_by_xpath("//android.widget.TextView[@text='扫一扫']").click()
