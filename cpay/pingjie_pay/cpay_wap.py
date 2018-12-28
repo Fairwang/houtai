@@ -11,37 +11,41 @@ class C2Cwap(unittest.TestCase):
     def setUp(self):
         self.desired_caps={}
         self.desired_caps['platformName']='Android'#测试的目标机器
-        self.desired_caps['platfromVersion']='7.1.1'#目标设备的系统版本
-        self.desired_caps['deviceName']='33d04c7c'#测试机器的名称（设备名称即可）
+        # self.desired_caps['platfromVersion']='7.1.1'#目标设备的系统版本
+        # self.desired_caps['deviceName']='33d04c7c'#测试机器的名称（设备名称即可）
+        self.desired_caps['platfromVersion']='8.0.0'#目标设备的系统版本
+        self.desired_caps['deviceName']='73EBB18706248705'#测试机器的名称（设备名称即可）
         self.desired_caps['browserName']='Chrome'
         self.desired_caps['noReset']='true'
         # self.desired_caps['appPackage']='com.android.chrome'#被测应用的包名（只有Android测试才用）
         self.desired_caps['appActivity']='org.chromium.chrome.browser.ChromeTabbedActivity'
         # self.desired_caps['unicodeKeyboard']='true'#支持中文输入，默认false
         # self.desired_caps['resetKeyboard'] = 'true'  # 重置输入法为系统默认
+        self.desired_caps['automationName'] = 'uiautomator2'
         self.driver=webdriver.Remote('http://localhost:4723/wd/hub',self.desired_caps)
-        self.driver.get('http://wangcpay.tinywan.top/demo.html?debug=true')
-        # time.sleep(5)
+
 
 
     def test_C2Cwap(self):
 
-
+        # self.driver.get('http://wangcpay.tinywan.top/demo.html?debug=true')
+        # # time.sleep(5)
         # self.driver.get('https://pay.hongnaga.com/?debug=true')
         # a=self.driver.switch_to.alert
-        # # a.send_keys("123456778")
+        # a.send_keys("123456778")
         # a.send_keys("112233")
         # a.accept()
         # time.sleep(2)
-        # url = "https://cpay.hypayde.com/t_q_code?id=T10251812171057414120"
+
+        url = "https://cpay.hypayde.com/t_q_code?id=T10251812171057414120"
         #
         # # driver = webdriver.Chrome()
-        # self.driver.get(url)
+        self.driver.get(url)
         # time.sleep(3)
-        self.driver.save_screenshot("123456.png")
+        self.driver.save_screenshot("123.png")
         time.sleep(3)
-        path="/DCIM/Camera/123.png"
-        self.driver.push_file(path,path.encode("base64"))
+        path="/data/local/tmp/123.png"
+        self.driver.push_file(path,path.encode("base64"))##往手机中放入图片
 
 
         lines = [12]

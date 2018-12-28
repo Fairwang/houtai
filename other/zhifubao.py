@@ -31,7 +31,7 @@ driver.find_element_by_xpath("//*[@type='submit']").click()
 print "yes2"
 time.sleep(3)
 # driver.find_element_by_xpath("//*[@class='index-cover-img-wrapper-close']").click()
-driver.find_element_by_xpath("/html/body/div[8]/div[2]/img[1]").click()
+driver.find_element_by_xpath("/html/body/div[8]/div[2]/easy_img[1]").click()
 time.sleep(1)
 driver.find_element_by_xpath("//*[@href='https://bizfundprod.alipay.com/payment/transfer/index.htm']").click()
 
