@@ -13,10 +13,10 @@ class C2Cwap(unittest.TestCase):
     def setUp(self):
         self.desired_caps = {}
         self.desired_caps['platformName'] = 'Android'  # 测试的目标机器
-        # self.desired_caps['platfromVersion']='7.1.1'#目标设备的系统版本
-        # self.desired_caps['deviceName']='33d04c7c'#测试机器的名称（设备名称即可）
-        self.desired_caps['platfromVersion'] = '8.0.0'  # 目标设备的系统版本
-        self.desired_caps['deviceName'] = '73EBB18629223414'  # 测试机器的名称（设备名称即可）
+        self.desired_caps['platfromVersion']='7.1.1'#目标设备的系统版本
+        self.desired_caps['deviceName']='33d04c7c'#测试机器的名称（设备名称即可）
+        # self.desired_caps['platfromVersion'] = '8.0.0'  # 目标设备的系统版本
+        # self.desired_caps['deviceName'] = '73EBB18629223414'  # 测试机器的名称（设备名称即可）
         self.desired_caps['browserName'] = 'Chrome'
         self.desired_caps['noReset'] = 'true'
         # self.desired_caps['appPackage']='com.android.chrome'#被测应用的包名（只有Android测试才用）
@@ -53,10 +53,25 @@ class C2Cwap(unittest.TestCase):
             self.driver.find_element_by_name("price").clear()  #
             self.driver.find_element_by_name("price").send_keys(price)
             # time.sleep(2)
-            # self.driver.hide_keyboard()
-            time.sleep(10)
-            self.driver.find_element_by_id("pay").click() #点击了但是没有得到相应的效果
-            time.sleep(8)
+            # self.driver.hide_keyboard()# The software keyboard cannot be closed
+
+            # 银行编码
+            self.driver.find_element_by_xpath("//*[@name='bank_code']").clear()
+            self.driver.find_element_by_xpath("//*[@name='bank_code']").send_keys("01050000")
+            # 姓名
+            self.driver.find_element_by_xpath("//*[@name='username']").clear()
+            self.driver.find_element_by_xpath("//*[@name='username']").send_keys(u"付贵炉")
+            # 银行卡号
+            self.driver.find_element_by_xpath("//*[@name='card_no']").clear()
+            self.driver.find_element_by_xpath("//*[@name='card_no']").send_keys("6217001540022416380")
+            # time.sleep(2)
+            time.sleep(2)
+            self.driver.find_element_by_tag_name(u"提交").click() #点击了但是没有得到相应的效果
+            time.sleep(5)
+            windows=self.driver.window_handles
+            self.driver.switch_to.window(windows[-1])
+            time.sleep(2)
+
             # 唤起支付宝App
             self.driver.find_element_by_link_text(u"使用支付宝App支付").click()
             time.sleep(8)
