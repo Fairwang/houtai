@@ -8,7 +8,7 @@ from selenium.webdriver.common.keys import Keys
 from appium import webdriver
 
 #聚合支付自动化测试
-# web端--点点支付demo界面——H5发起支付-吊起支付宝
+# web端--点点支付demo界面——H5发起支付-掉起起支付宝
 class C2Cwap(unittest.TestCase):
     def setUp(self):
         self.desired_caps = {}
@@ -27,11 +27,11 @@ class C2Cwap(unittest.TestCase):
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', self.desired_caps)
 
     def test_C2Cwap(self):
-
-        self.driver.get('https://pay.hongnaga.com/?debug=true')
+        self.driver.get('https://testpay.hongnaga.com/?debug=true')
+        # self.driver.get('https://pay.hongnaga.com/?debug=true')
         a=self.driver.switch_to.alert
-        # a.send_keys("123456778")
-        a.send_keys("112233")
+        a.send_keys("123456778")
+        # a.send_keys("112233")
         a.accept()
         time.sleep(2)
 
@@ -66,8 +66,10 @@ class C2Cwap(unittest.TestCase):
             self.driver.find_element_by_xpath("//*[@name='card_no']").send_keys("6217001540022416380")
             # time.sleep(2)
             time.sleep(2)
-            self.driver.find_element_by_tag_name(u"提交").click() #点击了但是没有得到相应的效果
-            time.sleep(5)
+            # a=self.driver.find_element_by_id("pay")
+            # print a
+            self.driver.find_element_by_id("pay").click() #点击了但是没有得到相应的效果
+            time.sleep(10)
             windows=self.driver.window_handles
             self.driver.switch_to.window(windows[-1])
             time.sleep(2)
@@ -75,7 +77,10 @@ class C2Cwap(unittest.TestCase):
             # 唤起支付宝App
             self.driver.find_element_by_link_text(u"使用支付宝App支付").click()
             time.sleep(8)
-            self.driver.current_activity()
+            self.driver.tap([(145,1536),(225,1596)])
+            # self.driver.tap(185, 1558)
+            time.sleep(8)
+            self.driver.current_activity()#无法切换到支付宝界面
 
             time.sleep(2)
             self.driver.find_element_by_link_text(u"立即付款").click()

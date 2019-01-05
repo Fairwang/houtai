@@ -49,7 +49,7 @@ def task2():
 
     driver1 = webdriver.Remote('http://localhost:4725/wd/hub', desired_caps6)
     # driver.find_element_by_xpath("//android.widget.TextView[@text='朋友']").click()
-    driver1.find_element_by_xpath("//android.widget.TextView[@text='扫一扫']").click()##这条执行时，未找到该元素，但只有task2运行时，可以找到钙元素
+    driver1.find_element_by_xpath("//android.widget.TextView[@text='扫一扫']").click()##这条执行时，未找到该元素，但只有task2运行时，可以找到该元素
     time.sleep(3)
     # driver.find_element_by_xpath("//android.widget.TextView[@text='温州赤龙网络科技有限公司']").click()
     time.sleep(1)
