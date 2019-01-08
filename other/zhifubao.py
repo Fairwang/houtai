@@ -8,43 +8,66 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import random
-driver=webdriver.Chrome()
-driver.get('https://auth.alipay.com/login/index.htm')
-time.sleep(3)
-driver.find_element_by_xpath("//*[@id='J-loginMethod-tabs']/li[2]").click()
-print "yes1"
-user="hongshan1@shopjian.com"
-for i in user:
-    t=random.randint(1,3)
-    print i
-    time.sleep(t)
-    driver.find_element_by_xpath("//*[@id='J-input-user']").send_keys(i)
-driver.find_element_by_xpath("//*[@id='J-input-user']").send_keys(Keys.ENTER)
-time.sleep(1)
-password="shopjian"
-for p in  password:
-    t2=random.randint(1,10)
-    time.sleep(t2)
-    driver.switch_to.active_element.send_keys(p)
-time.sleep(3)
-driver.find_element_by_xpath("//*[@type='submit']").click()
-print "yes2"
-time.sleep(3)
-# driver.find_element_by_xpath("//*[@class='index-cover-img-wrapper-close']").click()
-driver.find_element_by_xpath("/html/body/div[8]/div[2]/easy_img[1]").click()
-time.sleep(1)
-driver.find_element_by_xpath("//*[@href='https://bizfundprod.alipay.com/payment/transfer/index.htm']").click()
 
-account="15355433857"
-name="付贵"
-amount=1
-driver.find_element_by_id("J_payeeShowAccount").send_keys(account)
-time.sleep(1)
-driver.find_element_by_id("acNametxt").send_keys(name)
-time.sleep(1)
-driver.find_element_by_id("J_transferAmount").send_keys(amount)
-time.sleep(1)
-driver.find_element_by_xpath("submit").click()
+f = open("E:\\zxtest\\zijinguiji.txt", 'r')
+lines = f.readlines()      #读取全部内容 ，并以列表方式返回
+print lines
+for line in lines:
+    line=line.strip()
+    print line
+    user=line.split(",")[0]
+    passw=line.split(",")[1]
+    print user
+    print passw
+    time.sleep(10)
+    driver=webdriver.Chrome()
+    driver.get('https://auth.alipay.com/login/index.htm')
+    time.sleep(3)
+    driver.find_element_by_xpath("//*[@id='J-loginMethod-tabs']/li[2]").click()
+    print "yes1"
+    for i in user:
+        t=random.randint(1,3)
+        print i
+        time.sleep(t)
+        driver.find_element_by_xpath("//*[@id='J-input-user']").send_keys(i)
+    driver.find_element_by_xpath("//*[@id='J-input-user']").send_keys(Keys.ENTER)
+    time.sleep(1)
+    for p in  passw:
+        t2=random.randint(1,10)
+        time.sleep(t2)
+        driver.switch_to.active_element.send_keys(p)
+    time.sleep(3)
+    driver.find_element_by_xpath("//*[@type='submit']").click()
+    print "login success"
+
+    time.sleep(3)
+    #进入资金管理界面
+    driver.find_element_by_xpath('//*[@id="react-content"]/div/div[1]/div[2]/div/div[4]/div[1]/div/div[4]/div/a').click()
+    windows=driver.window_handles
+    driver.switch_to.window(windows[-1])
+    price=driver.find_element_by_xpath('//*[@id="react-content"]/div/div[2]/div[2]/div[1]/span/div[1]/div[2]').text()
+    driver.find_element_by_xpath('//*[@id="react-content"]/div/div[2]/div[2]/div[1]/div/a[3]').click()
+    windows=driver.window_handles
+    driver.switch_to.window(windows[-1])
+    driver.find_element_by_xpath('//*[@id="J_paymentToBankCardAmount"]').send_keys("1")
+    driver.find_element_by_xpath('//*[@id="J_formSubmitButton"]').click()
+
+    # driver.find_element_by_xpath("//*[@class='index-cover-img-wrapper-close']").click()
+    # driver.find_element_by_xpath("/html/body/div[8]/div[2]/easy_img[1]").click()
+    # time.sleep(1)
+
+    # driver.find_element_by_xpath("//*[@href='https://bizfundprod.alipay.com/payment/transfer/index.htm']").click()
+    # account="15355433857"
+    # name="付贵"
+    # amount=1
+    # driver.find_element_by_id("J_payeeShowAccount").send_keys(account)
+    # time.sleep(1)
+    # driver.find_element_by_id("acNametxt").send_keys(name)
+    # time.sleep(1)
+    # driver.find_element_by_id("J_transferAmount").send_keys(amount)
+    # time.sleep(1)
+    # driver.find_element_by_xpath("submit").click()
+
 
 
 # from jiandian.common import driver_config,gesture_mainpulation,get_toast,query_database

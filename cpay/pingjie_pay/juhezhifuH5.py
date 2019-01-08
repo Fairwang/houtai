@@ -35,7 +35,7 @@ class C2Cwap(unittest.TestCase):
         a.accept()
         time.sleep(2)
 
-        lines = [12]
+        lines = [18]
         i = 1
         handles = self.driver.window_handles
         print handles
@@ -48,7 +48,7 @@ class C2Cwap(unittest.TestCase):
             pay_type = Select(self.driver.find_element_by_id("pay_type"))
             self.driver.find_element_by_id("pay_type").click()
             # pay_type.select_by_value("11")  # 支付宝wap
-            pay_type.select_by_value("5")  # 支付宝wap
+            pay_type.select_by_value("5")  # 支付宝H5
             # 金额
             self.driver.find_element_by_name("price").clear()  #
             self.driver.find_element_by_name("price").send_keys(price)
@@ -64,27 +64,39 @@ class C2Cwap(unittest.TestCase):
             # 银行卡号
             self.driver.find_element_by_xpath("//*[@name='card_no']").clear()
             self.driver.find_element_by_xpath("//*[@name='card_no']").send_keys("6217001540022416380")
-            # time.sleep(2)
-            time.sleep(2)
-            # a=self.driver.find_element_by_id("pay")
-            # print a
+
             self.driver.find_element_by_id("pay").click() #点击了但是没有得到相应的效果
+            time.sleep(2)
+            self.driver.find_element_by_id("pay").click()
             time.sleep(10)
             windows=self.driver.window_handles
             self.driver.switch_to.window(windows[-1])
             time.sleep(2)
+            print self.driver.current_activity
 
             # 唤起支付宝App
             self.driver.find_element_by_link_text(u"使用支付宝App支付").click()
             time.sleep(8)
-            self.driver.tap([(145,1536),(225,1596)])
+            # self.driver.tap([(145,1536),(225,1596)])
             # self.driver.tap(185, 1558)
             time.sleep(8)
-            self.driver.current_activity()#无法切换到支付宝界面
-
+            # self.driver.current_activity()#无法切换到支付宝界面
+            lijifukuan=self.driver.current_activity
+            print "aaa:  %s"%lijifukuan
+            self.driver.wait_activity("com.alipay.mobile.payee.ui.PayeeQRPayFormActivity",5,2)
+            # self.driver.start_activity("com.eg.android.AlipayGphone","com.alipay.android.msp.ui.views.MspContainerActivity")
             time.sleep(2)
-            self.driver.find_element_by_link_text(u"立即付款").click()
+            print "hhahh"
+            self.driver.switch_to.active_element.click()
 
+            print self.driver.current_activity
+            time.sleep(3)
+            # self.driver.find_element_by_xpath("//android.widget.TextView[@text='立即付款']").click()
+            # self.driver.find_element_by_xpath("// android.widget.FrameLayout[ @ index = '0']").click()#定位不到,
+            self.driver.tap([(523,1825)],890)#Method has not yet been implemented
+            time.sleep(3)
+
+            print "sucess"
             if i == 1:
                 time.sleep(60000)
             i = i + 1
