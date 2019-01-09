@@ -4,10 +4,24 @@
 # from jiandian01 import getmsg_ex, swipe
 #个人转账时需要校验验证码
 #企业不需要验证
+
+#alip  支付宝转账到银行卡 该支付宝已经绑定银行卡
+#20190109
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import random
+
+def tagname_iselement(element):
+    flag=True
+    try:
+        driver.find_element_by_tag_name(result)
+        return flag
+    except :
+        falg=False
+        return flag
+
+
 
 f = open("E:\\zxtest\\zijinguiji.txt", 'r')
 lines = f.readlines()      #读取全部内容 ，并以列表方式返回
@@ -17,40 +31,64 @@ for line in lines:
     print line
     user=line.split(",")[0]
     passw=line.split(",")[1]
+    zpassw=line.split(",")[2]
     print user
     print passw
-    time.sleep(10)
-    driver=webdriver.Chrome()
-    driver.get('https://auth.alipay.com/login/index.htm')
-    time.sleep(3)
-    driver.find_element_by_xpath("//*[@id='J-loginMethod-tabs']/li[2]").click()
-    print "yes1"
-    for i in user:
-        t=random.randint(1,3)
-        print i
-        time.sleep(t)
-        driver.find_element_by_xpath("//*[@id='J-input-user']").send_keys(i)
-    driver.find_element_by_xpath("//*[@id='J-input-user']").send_keys(Keys.ENTER)
-    time.sleep(1)
-    for p in  passw:
-        t2=random.randint(1,10)
-        time.sleep(t2)
-        driver.switch_to.active_element.send_keys(p)
-    time.sleep(3)
-    driver.find_element_by_xpath("//*[@type='submit']").click()
-    print "login success"
+    if len(user)>11:
+        #账户为邮箱  视为公司账户
+        time.sleep(2)
+        driver=webdriver.Chrome()
+        driver.get('https://auth.alipay.com/login/index.htm')
+        time.sleep(3)
+        driver.find_element_by_xpath("//*[@id='J-loginMethod-tabs']/li[2]").click()
+        print "yes1"
+        for i in user:
+            t=random.randint(1,3)
+            print i
+            time.sleep(t)
+            driver.find_element_by_xpath("//*[@id='J-input-user']").send_keys(i)
+        time.sleep(1)
+        driver.find_element_by_xpath("//*[@id='J-input-user']").send_keys(Keys.TAB)
+        time.sleep(1)
+        for p in  passw:
+            t2=random.randint(1,3)
+            time.sleep(t2)
+            driver.switch_to.active_element.send_keys(p)
+        time.sleep(3)
+        driver.find_element_by_xpath("//*[@type='submit']").click()
+        print "login success"
 
-    time.sleep(3)
-    #进入资金管理界面
-    driver.find_element_by_xpath('//*[@id="react-content"]/div/div[1]/div[2]/div/div[4]/div[1]/div/div[4]/div/a').click()
-    windows=driver.window_handles
-    driver.switch_to.window(windows[-1])
-    price=driver.find_element_by_xpath('//*[@id="react-content"]/div/div[2]/div[2]/div[1]/span/div[1]/div[2]').text()
-    driver.find_element_by_xpath('//*[@id="react-content"]/div/div[2]/div[2]/div[1]/div/a[3]').click()
-    windows=driver.window_handles
-    driver.switch_to.window(windows[-1])
-    driver.find_element_by_xpath('//*[@id="J_paymentToBankCardAmount"]').send_keys("1")
-    driver.find_element_by_xpath('//*[@id="J_formSubmitButton"]').click()
+        time.sleep(3)
+        #点击、进入资金管理界面
+        driver.find_element_by_xpath('//*[@id="react-content"]/div/div[1]/div[2]/div/div[4]/div[1]/div/div[4]/div/a').click()
+        windows=driver.window_handles
+        driver.switch_to.window(windows[-1])
+        #获取当前金额
+        price=driver.find_element_by_xpath('//*[@id="react-content"]/div/div[2]/div[2]/div[1]/span/div[1]/div[2]').text
+        #点击、进入提现
+        driver.find_element_by_xpath('//*[@id="react-content"]/div/div[2]/div[2]/div[1]/div/a[3]').click()
+        windows=driver.window_handles
+        driver.switch_to.window(windows[-1])
+        #输入提现
+        price=price/2
+        driver.find_element_by_xpath('//*[@id="J_paymentToBankCardAmount"]').send_keys(price)
+        time.sleep(1)
+        driver.find_element_by_xpath('//*[@id="J_formSubmitButton"]').click()
+        #进入输入密码界面
+        driver.find_element_by_xpath("//*[@id='payPassword_rsainput']").click()
+        for p in zpassw:
+            t3=random.randint(1,3)
+            time.sleep(t3)
+            driver.switch_to.active_element.send_keys(p)
+        time.sleep(1)
+        driver.find_element_by_xpath('//*[@type="submit"]').click()
+        driver.refresh()
+        time.sleep(1)
+        result="转账记录"
+        if tagname_iselement(result):
+            print "zhuanzhang success"
+
+
 
     # driver.find_element_by_xpath("//*[@class='index-cover-img-wrapper-close']").click()
     # driver.find_element_by_xpath("/html/body/div[8]/div[2]/easy_img[1]").click()
