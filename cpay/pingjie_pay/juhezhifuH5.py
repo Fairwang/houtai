@@ -34,7 +34,7 @@ class C2Cwap(unittest.TestCase):
         # a.send_keys("112233")
         a.accept()
         time.sleep(2)
-
+        self.driver.tap([(523, 1825)], 890)
         lines = [18]
         i = 1
         handles = self.driver.window_handles
