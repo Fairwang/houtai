@@ -2,7 +2,7 @@
 #  -*-coding: utf-8-*-
 import unittest
 import time
-import uiautomator2
+import houtai.other.uiautomator2
 from appium import webdriver
 import time
 import random

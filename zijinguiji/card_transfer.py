@@ -248,7 +248,7 @@ for line in lines:
         time.sleep(2)
         #获取需要点击的汉字
         hanzi=driver.find_element_by_xpath('//*[@id="nc_1__scale_text"]/i').text
-        hanzi=hanzi.split('“')[1].split('”')[0]
+        hanzi=hanzi.split('“')[1].split('”')[0] #分割出需要被识别的汉字
         print hanzi
         img=driver.find_element_by_tag_name('img')
         size=img.size

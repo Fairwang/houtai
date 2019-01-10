@@ -4,7 +4,7 @@ from selenium import webdriver
 import time
 from selenium.webdriver.common.keys import Keys
 import random
-#阿里云识别印刷体
+#阿里云识别印刷体，UI定位还是上传图片
 url='http://duguang.aliyun.com/demo/general.htm?type=contract'
 driver=webdriver.Chrome()
 driver.get(url)
@@ -51,10 +51,11 @@ for a in account:
     driver.execute_script(js)
     time.sleep(2)
     driver.maximize_window()
+    print driver.current_window_handle
     driver.find_element_by_xpath('//*[@class="btn upload-file-btn"]').click()
-    windows=driver.window_handles
-    driver.switch_to.window(windows[-1])
-    driver.switch_to.active_element.send_keys('E:\zxtest\qi.png')
+    ##这里需要Windows系统的弹窗，需要安装使用spy++工具以及引入python（pywin32）库
+
+    driver.switch_to.active_element.send_keys('E:\zxtest\la.png')
     driver.switch_to.active_element.send_keys(Keys.ENTER)
     wenzi=driver.find_element_by_xpath('//*[@class="textbox-list"]').text
     print "wenzi:   "%wenzi
