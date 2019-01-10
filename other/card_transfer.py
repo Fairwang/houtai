@@ -9,14 +9,13 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import random
-from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
+from selenium.webdriver import ActionChains
 
-
-def tagname_iselement(element):
+def linktext_iselement(element):
     flag=True
     try:
-        driver.find_element_by_tag_name(result)
+        driver.find_element_by_link_text(result)
         return flag
     except :
         flag=False
@@ -30,6 +29,36 @@ def xpath_iselement(element):
         flag=True
         return flag
 
+def get_track(distance):
+    '''
+    拿到移动的轨迹，模仿人的滑动行为，先加速后匀减速
+    匀变速运动基本公式：
+    v=v0+at
+    s=v0t+(1/2)att
+    v*v-v0*v0=2as
+
+    :param distance: 需要移动的距离
+    :return: 存放每0.2秒移动的距离
+    '''
+    v=0
+    t=0.2
+
+    tracks=[]   #位移
+    current=0   #当前位移
+    mid=distance*2/3    #到达mid 开始减速
+    while current < distance:
+        if current< mid:
+            a=random.randint(1,4)   #加速运动
+        else:
+            a=-random.randint(2,5)  #减速运动
+        v0=v
+        s=v0*t+0.5*a*(t**2)
+        current+=s
+        tracks.append(round(s)) #添加到轨迹列表
+        v=v0+a*t
+    return tracks
+
+
 f = open("E:\\zxtest\\zijinguiji.txt", 'r')
 lines = f.readlines()      #读取全部内容 ，并以列表方式返回
 print lines
@@ -42,7 +71,7 @@ for line in lines:
     print user
     print passw
     if len(user)>11:
-        #账户为邮箱  视为公司账户
+        #账户为邮箱  视为公司账户，只能转到对公账户多绑定的银行卡，否则只能绑定成功，不能转账成功
         #已经绑定银行卡
         time.sleep(2)
         driver=webdriver.Chrome()
@@ -79,15 +108,21 @@ for line in lines:
         driver.switch_to.window(windows[-1])
         #判断是否已经绑定银行卡
         # bind=u"添加银行账户"
-        bind='//*[@class="mi-button-text"]'
+        # bind=u'添加银行账户'#定位不到 定位上级试试
+        bind='seed="miNoticeTitle-miButtonT1"'
         if xpath_iselement(bind):
+            #未绑定银行卡，需要先绑定银行卡
+            # bind2 = 'seed="miNoticeTitle-miButtonT1"'
             driver.find_element_by_xpath(bind).click()
             driver.refresh()
             yinhangzhanghu="6217001540022416380"
             yinhang=u"中国建设银行"
             kaihuhang=u"西溪支行"
             #银行账户
-            driver.find_element_by_xpath('//*[@id="J_card"]').send_keys(yinhangzhanghu)
+            for p in yinhangzhanghu:
+                y = random.randint(1, 3)
+                time.sleep(y)
+                driver.find_element_by_xpath('//*[@id="J_card"]').send_keys(p)
             driver.find_element_by_xpath('//*[@id="J_card"]').send_keys(Keys.TAB)
             #开户行
             for p in yinhang:
@@ -100,7 +135,7 @@ for line in lines:
             #选择省份
             driver.find_element_by_xpath('//*[@id="J_districtView11"]').click()
             driver.find_element_by_xpath('//*[@title="浙江省"]').click()#浙江省
-            driver.find_elements_by_xpath('//*[@title="杭州市"]').click()#杭州市
+            driver.find_element_by_xpath('//*[@title="杭州市"]').click()#杭州市
             # driver.find_element_by_xpath('/html/body/div[11]/div/div/div[31]').click()#浙江省
             # driver.find_elements_by_xpath('/html/body/div[10]/div/div[2]/div[1]').click()#杭州市
             for p in kaihuhang:
@@ -113,6 +148,7 @@ for line in lines:
             driver.refresh()
             windows=driver.window_handles
             driver.switch_to.window(windows[-2])
+        #已经绑定银行卡
         #点击、进入提现   企业转账只能转账到支付宝，转账到银行卡只能用提现
         driver.find_element_by_xpath('//*[@id="react-content"]/div/div[2]/div[2]/div[1]/div/a[3]').click()
         #输入提现
@@ -131,9 +167,10 @@ for line in lines:
         driver.refresh()
         time.sleep(1)
         result=u"转账记录"
-        if tagname_iselement(result):
+        if linktext_iselement(result):
             print "tixian success"
     else:
+        #账号为个人，转账到个人
         driver=webdriver.Chrome()
         driver.get('https://auth.alipay.com/login/index.htm')
         time.sleep(3)
@@ -155,22 +192,29 @@ for line in lines:
         driver.find_element_by_xpath("//*[@type='submit']").click()
         print "login success"
         time.sleep(3)
-        #点击、进入资金管理界面
-        driver.find_element_by_xpath('//*[@id="react-content"]/div/div[1]/div[2]/div/div[4]/div[1]/div/div[4]/div/a').click()
-        windows=driver.window_handles
-        driver.switch_to.window(windows[-1])
-        #获取当前金额
-        price=driver.find_element_by_xpath('//*[@id="react-content"]/div/div[2]/div[2]/div[1]/span/div[1]/div[2]').text
-        #点击、进入转账
-        driver.find_element_by_xpath('//*[@href="https://bizfundprod.alipay.com/payment/transfer/index.htm"').click()
-        windows=driver.window_handles
-        driver.switch_to.window(windows[-1])
-        driver.find_element_by_link_text(u'转账到银行卡').click()
+        wait_text=u'顾客太多，客官请稍候'
+        if linktext_iselement(wait_text):
+            driver.find_element_by_xpath('//*[@href="https://www.alipay.com/"]').click()
+            driver.refresh()
+            driver.find_element_by_xpath('//*[@href="https://my.alipay.com/portal/i.htm"]').click()
 
+        #获取当前金额
+        driver.find_element_by_xpath('//*[@class="show-text"]').click()
+        time.sleep(1)
+        price=driver.find_element_by_xpath('//*[@id="account-amount-container"]').text
+        price=price.split('.')[0]
+        print price
+        #点击、进入转账
+        driver.find_element_by_xpath('//*[@title="转账"]').click()
+        time.sleep(6)
+        #点击、进入转账
+        # driver.find_element_by_link_text('转账到银行卡').click()
+        # driver.find_element_by_xpath('//*[@data-id="10053"]').click()#定位不到转账银行卡这一级
+        driver.find_elements_by_xpath('//*[@class="myapp-item  fn-clear"]')[1].click()#定位银行卡上一级 定位成功
         yinhang = u"中国建设银行"
         yinhangzhanghu = "6217001540022416380"
         kaihuhang = u"付贵炉"
-        price=price/2
+        price=10
         # 银行
         driver.find_element_by_xpath('//*[@id="bankName"]').send_keys(yinhang)
         driver.find_element_by_xpath('//*[@id="bankName"]').send_keys(Keys.TAB)
@@ -178,12 +222,39 @@ for line in lines:
         driver.find_element_by_xpath('//*[@id="bankCardNo"]').send_keys(yinhangzhanghu)
         driver.find_element_by_xpath('//*[@id="bankCardNo"]').send_keys(Keys.TAB)
         # 开户人姓名
-        driver.find_element_by_xpath('//*[@name="optCardName"]').send_keys(yinhangzhanghu)
+        driver.find_element_by_xpath('//*[@name="optCardName"]').send_keys(kaihuhang)
         driver.find_element_by_xpath('//*[@name="optCardName"]').send_keys(Keys.TAB)
         #金额
-        driver.find_element_by_xpath('//*[@id="amount"').send_keys(price)
-        driver.find_element_by_xpath('//*[@id="amount"').send_keys(Keys.TAB)
+        driver.find_element_by_xpath('//*[@id="amount"]').send_keys(price)
+        driver.find_element_by_xpath('//*[@id="amount"]').send_keys(Keys.TAB)
+        time.sleep(2)
         #提交
-        driver.find_element_by_xpath('//*[@type="submit"').click()
-        windows=driver.window_handles
-        driver.switch_to.window(windows[-1])
+        driver.find_element_by_xpath('//*[@type="submit"]').click()
+        time.sleep(1)
+        #验证码界面，滑动验证，点击验证码
+        huakuai=driver.find_element_by_xpath('//*[@class="nc_iconfont btn_slide"]')
+        print"点击活动按钮"
+        ActionChains(driver).click_and_hold(on_element=huakuai).perform()
+        time.sleep(1)
+        print "开始拖动"
+        huaban=driver.find_element_by_xpath('//*[@id="nc_1_n1t"]')
+        distanceh=huaban.size
+        print  distanceh   #滑板长度
+        track_list=get_track(distanceh['width'])
+        for track  in track_list:
+            ActionChains(driver).move_by_offset(xoffset=track,yoffset=0).perform()  #开始移动到当前xy
+            time.sleep(0.005)
+        ActionChains(driver).release(on_element=huakuai).perform()
+        time.sleep(2)
+        #获取需要点击的汉字
+        hanzi=driver.find_element_by_xpath('//*[@id="nc_1__scale_text"]/i').text
+        hanzi=hanzi.split('“')[1].split('”')[0]
+        print hanzi
+        img=driver.find_element_by_tag_name('img')
+        size=img.size
+        location=img.location
+
+
+
+
+
