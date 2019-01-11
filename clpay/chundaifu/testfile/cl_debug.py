@@ -30,7 +30,7 @@ class clpay_pay():
         # print lines
         # for i in range(100):
 
-        lines=[5,50,100,50,60,125]
+        lines=[21,12,15,16]
         i=1
         for price in lines:
             # price = price[:-1]#从文本中取出后删除其\n标志
@@ -46,8 +46,8 @@ class clpay_pay():
             driver.find_element_by_id("pay_type").click()
             # pay_type.select_by_value("13")#新支付宝转账
             # pay_type.select_by_value("5")#支付宝h5
-            pay_type.select_by_value("1")  # 网银支付
-            # pay_type.select_by_value("15")  # 支付宝扫码
+            # pay_type.select_by_value("1")  # 网银支付
+            pay_type.select_by_value("15")  # 支付宝扫码
             # pay_type.select_by_value("17")  # 支付宝wap
             # pay_type.select_by_value("11")  # 商户代付
             # pay_type.select_by_value("3")  # QQ扫码
@@ -57,7 +57,7 @@ class clpay_pay():
             driver.find_element_by_name("price").send_keys(price)
 
         # 银行编码
-            driver.find_element_by_xpath("//*[@name='bank_code']").clear()
+        #     driver.find_element_by_xpath("//*[@name='bank_code']").clear()
             # driver.find_element_by_xpath("//*[@name='bank_code']").send_keys("01050000")
 
         # 姓名
@@ -67,11 +67,10 @@ class clpay_pay():
             # driver.find_element_by_xpath("//*[@name='card_no']").clear()
             # driver.find_element_by_xpath("//*[@name='card_no']").send_keys("6217001540022416380")
 
-            time.sleep(2)
+            # time.sleep(2)
             driver.find_element_by_id("pay").click()
             driver.implicitly_wait(5)
-            time.sleep(1)
-
+            time.sleep(2)
             windows = driver.window_handles
             time.sleep(2)
             driver.switch_to.window(windows[0])
@@ -81,11 +80,11 @@ class clpay_pay():
             if clpay.isElementExist(zf11):
                 print "yes"
                 driver.find_element_by_link_text("支付完成").click()
-                time.sleep(1)
+                # time.sleep(1)
             else:
                 pass
-            time.sleep(3)
-            if i==6:
+            # time.sleep(3)
+            if i==4:
                 time.sleep(60000)
             i=i+1
 

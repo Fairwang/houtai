@@ -37,6 +37,7 @@ class yinlian_web():
             pay_type = Select(driver.find_element_by_id("pay_type"))
             driver.find_element_by_id("pay_type").click()
             pay_type.select_by_value("6")#银联wap
+
             # 金额
             driver.find_element_by_name("price").clear()  #
             driver.find_element_by_name("price").send_keys(price)
