@@ -11,25 +11,32 @@ from selenium.webdriver.common.keys import Keys
 import random
 from selenium.webdriver.common.by import By
 from selenium.webdriver import ActionChains
+from PIL import Image,ImageEnhance
+import pytesseract
+import time
+import numpy as np
+import cv2
 
 def linktext_iselement(element):
     flag=True
     try:
-        driver.find_element_by_link_text(result)
+        driver.find_element_by_link_text(element)
         return flag
     except :
         flag=False
         return flag
+
 def xpath_iselement(element):
     flag=True
     try:
         driver.find_element_by_xpath(element)
         return flag
     except:
-        flag=True
+        flag=False
         return flag
 
 def get_track(distance):
+
     '''
     拿到移动的轨迹，模仿人的滑动行为，先加速后匀减速
     匀变速运动基本公式：
@@ -57,6 +64,29 @@ def get_track(distance):
         tracks.append(round(s)) #添加到轨迹列表
         v=v0+a*t
     return tracks
+
+def erzhihua(fiepath):
+    #处理图片
+    img = Image.open(fiepath).convert('L')  # 二ZZZ值化
+    img = ImageEnhance.Contrast(img)  # 增强对比度
+    img = img.enhance(2.0)  # 增加饱和度
+    # w,h=img.size
+    x=0
+    y=0
+    img.save('./tupian/daichuli.png')
+    img = np.array(Image.open('./tupian/daichuli.png'))
+    h, w = img.shape[:2]
+    for y in range(1, w-1):
+        for x in range(1, h-1 ):
+            count = 0
+            # cur_pixel = easy_img.getpixel((x, y+1))
+            # print"当前像素：%s"%cur_pixel
+            if img[x, y ] > 127:
+                img[x, y] = 0
+            else:
+                img[x,y] =255
+    cv2.imwrite('./tupian/yichuli.png', img, [int(cv2.IMWRITE_PNG_COMPRESSION), 0])
+    time.sleep(1)
 
 
 f = open("E:\\zxtest\\zijinguiji.txt", 'r')
@@ -192,12 +222,16 @@ for line in lines:
         driver.find_element_by_xpath("//*[@type='submit']").click()
         print "login success"
         time.sleep(3)
-        wait_text=u'顾客太多，客官请稍候'
-        if linktext_iselement(wait_text):
+        wait_text = '//*[@class="wait-text"]'
+        # wait_text=u'顾客太多，客官请稍候'
+        if xpath_iselement(wait_text):
+            time.sleep(1)
             driver.find_element_by_xpath('//*[@href="https://www.alipay.com/"]').click()
+            time.sleep(1)
             driver.refresh()
+            time.sleep(1)
             driver.find_element_by_xpath('//*[@href="https://my.alipay.com/portal/i.htm"]').click()
-
+        time.sleep(1)
         #获取当前金额
         driver.find_element_by_xpath('//*[@class="show-text"]').click()
         time.sleep(1)
@@ -247,12 +281,33 @@ for line in lines:
         ActionChains(driver).release(on_element=huakuai).perform()
         time.sleep(2)
         #获取需要点击的汉字
-        hanzi=driver.find_element_by_xpath('//*[@id="nc_1__scale_text"]/i').text
+        hanzi=driver.find_element_by_xpath('//*[@id="nc_1__scale_text"]/i').text    # “词”
+        hanzi="'"+hanzi+"'"
         hanzi=hanzi.split('“')[1].split('”')[0] #分割出需要被识别的汉字
-        print hanzi
+        # print hanzi
+        #截图点选汉字图片
         img=driver.find_element_by_tag_name('img')
         size=img.size
+        print size
         location=img.location
+        print location
+        driver.save_screenshot('./tupian/datu.png')
+        rangle = (int(location['x']), \
+                  int(location['y']), \
+                  int(location['x'] + size['width']), \
+                  int(location['y'] + size['height']))
+        png = Image.open('./tupian/datu.png')
+        png2 = png.crop(rangle)
+        pic = png2.save('./tupian/xiaotu.png')
+        #处理图片
+        erzhihua('./tupian/xiaotu.png')
+        #识别汉字
+
+
+
+
+
+
 
 
 

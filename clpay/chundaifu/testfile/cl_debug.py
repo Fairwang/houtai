@@ -74,7 +74,7 @@ class clpay_pay():
             # time.sleep(5)
             windows = driver.window_handles
             driver.switch_to.window(windows[0])
-            time.sleep(1)
+            time.sleep(8)
             zf11="支付完成"
             clpay=clpay_pay(driver)
             if clpay.isElementExist(zf11):
