@@ -16,6 +16,8 @@ import pytesseract
 import time
 import numpy as np
 import cv2
+import json
+from houtai.zijinguiji.tx_yinshua import tx_yinshua
 
 def linktext_iselement(element):
     flag=True
@@ -25,6 +27,7 @@ def linktext_iselement(element):
     except :
         flag=False
         return flag
+
 
 def xpath_iselement(element):
     flag=True
@@ -111,7 +114,7 @@ for line in lines:
         print "yes1"
         for i in user:
             t=random.randint(1,3)
-            print i
+            # print i
             time.sleep(t)
             driver.find_element_by_xpath("//*[@id='J-input-user']").send_keys(i)
         time.sleep(1)
@@ -208,7 +211,6 @@ for line in lines:
         print "yes1"
         for i in user:
             t=random.randint(1,3)
-            print i
             time.sleep(t)
             driver.find_element_by_xpath("//*[@id='J-input-user']").send_keys(i)
         time.sleep(1)
@@ -230,7 +232,10 @@ for line in lines:
             time.sleep(1)
             driver.refresh()
             time.sleep(1)
+            driver.find_element_by_xpath('//*[@class="personal-login"]').click()
+            time.sleep(1)
             driver.find_element_by_xpath('//*[@href="https://my.alipay.com/portal/i.htm"]').click()
+
         time.sleep(1)
         #获取当前金额
         driver.find_element_by_xpath('//*[@class="show-text"]').click()
@@ -280,32 +285,61 @@ for line in lines:
             time.sleep(0.005)
         ActionChains(driver).release(on_element=huakuai).perform()
         time.sleep(2)
-        #获取需要点击的汉字
-        hanzi=driver.find_element_by_xpath('//*[@id="nc_1__scale_text"]/i').text    # “词”
-        hanzi="'"+hanzi+"'"
-        hanzi=hanzi.split('“')[1].split('”')[0] #分割出需要被识别的汉字
-        # print hanzi
-        #截图点选汉字图片
-        img=driver.find_element_by_tag_name('img')
-        size=img.size
-        print size
-        location=img.location
-        print location
-        driver.save_screenshot('./tupian/datu.png')
-        rangle = (int(location['x']), \
-                  int(location['y']), \
-                  int(location['x'] + size['width']), \
-                  int(location['y'] + size['height']))
-        png = Image.open('./tupian/datu.png')
-        png2 = png.crop(rangle)
-        pic = png2.save('./tupian/xiaotu.png')
-        #处理图片
-        erzhihua('./tupian/xiaotu.png')
-        #识别汉字
 
+        yes_text='//*[@data-nc-lang="_yesTEXT"]'
+        while not xpath_iselement(yes_text):    #验证通过不存在 进行点选汉字
+            #获取需要点击的汉字
+            time.sleep(5)
+            hanzi=driver.find_element_by_xpath('//*[@id="nc_1__scale_text"]/i').text    # “词”
+            print type(hanzi)   #unicode
+            hanzi=hanzi.split(u'“')[1].split(u'”')[0] #分割出需要被识别的汉字  词
+            print "hanzi: %s"%hanzi
+            print type(hanzi)
+            #截图点选汉字图片
+            img=driver.find_element_by_tag_name('img')
+            size=img.size
+            print "size:%s"%size          #size:{'width': 230, 'height': 230}
+            location=img.location   #location:{'y': 563.0, 'x': 311.0}
+            print "location:%s"%location
+            print type(location)    #<type 'dict'>
 
+            driver.save_screenshot('./tupian/datu.png')
+            rangle = (int(location['x']), \
+                      int(location['y']), \
+                      int(location['x'] + size['width']), \
+                      int(location['y'] + size['height']))
+            png = Image.open('./tupian/datu.png')
+            png2 = png.crop(rangle)
+            pic = png2.save('./tupian/xiaotu.png')
+            #处理图片
+            # erzhihua('./tupian/xiaotu.png')
+            #处理图片/识别汉字,引入tx_yinshua模块
+            hanzi_location=tx_yinshua(hanzi,'./tupian/xiaotu.png')    #{'x':121,'y':197}
+            print"hanzi_location:%s" %hanzi_location
+            if hanzi_location!=None:
+                time.sleep(2)
+                print "zheli"
+                ActionChains(driver).move_to_element_with_offset(img,hanzi_location["x"],hanzi_location["y"]).click().perform()
+                time.sleep(3)
 
-
+            else:
+                time.sleep(2)
+                ActionChains(driver).move_to_element_with_offset(img, "-100","-100").click().perform()
+                time.sleep(3)
+        time.sleep(5)
+        driver.find_element_by_xpath('//*[@value="确认信息并付款"]').click()
+        time.sleep(2)
+        driver.find_element_by_xpath('//*[@id="payPassword_container"]').click()
+        for z in zpassw:
+            time.sleep(random.randint(1,3))
+            driver.switch_to_active_element().send_keys(z)
+        driver.find_element_by_xpath('//*[@id="J_authSubmit"]').click()
+        time.sleep(1)
+        already_pay='//*[@class="notice-box  notice-success  fn-clear"]'
+        if xpath_iselement(already_pay):
+            print "银行卡转账提交成功"
+        else:
+            print "银行卡转账提交失败"
 
 
 
