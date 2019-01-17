@@ -65,7 +65,8 @@ def tx_yinshua(hanzi,file_path):
                 y = y + int(height / 2)
                 x = x + int((width * i *2-1)/ 8)
                 # print x, y
-                return {'x':-x,'y':-y}
+                return {'x':-x,'y':-y}  #  :None
+
             i=i+1
 #hanzi 为<type 'unicode'>时可以识别    <type 'str'>
 # hanzi=u"星"
