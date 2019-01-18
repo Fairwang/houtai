@@ -6,8 +6,9 @@ from hashlib import sha1
 import hmac
 import base64
 import requests
+
 def tx_yinshua(hanzi,file_path):
-    tx_appid=open("E:\\zxtest\\tx_appid.txt","r")#只有一行
+    tx_appid=open("E:\\zxtest\\tx_appid.txt","r")#只有一行，
     lines=tx_appid.readlines()
     for line in lines:
         line=line.strip()
@@ -65,11 +66,10 @@ def tx_yinshua(hanzi,file_path):
                 y = y + int(height / 2)
                 x = x + int((width * i *2-1)/ 8)
                 # print x, y
-                return {'x':-x,'y':-y}  #  :None
-
+                return {'x':x,'y':y}  #  :None
             i=i+1
-#hanzi 为<type 'unicode'>时可以识别    <type 'str'>
-# hanzi=u"星"
+# #hanzi 为<type 'unicode'>时可以识别    <type 'str'>
+# hanzi=u"除"
 # print type(hanzi)
 # hanzi_location = tx_yinshua(hanzi, './tupian/xiaotu.png')  # {'x':121,'y':197}
 # print hanzi_location

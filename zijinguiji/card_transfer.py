@@ -131,6 +131,9 @@ for line in lines:
         time.sleep(3)
         #点击、进入资金管理界面
         driver.find_element_by_xpath('//*[@id="react-content"]/div/div[1]/div[2]/div/div[4]/div[1]/div/div[4]/div/a').click()
+        # driver.find_element_by_xpath('//*[@class="index-composite-customer-yu-product-link"').click()   #selenium.common.exceptions.InvalidSelectorException: Message: invalid selector: Unable to locate an element with the xpath expression //*[@class="index-composite-customer-yu-product-link" because of the following error:
+#SyntaxError: Failed to execute 'evaluate' on 'Document': The string '//*[@class="index-composite-customer-yu-product-link"' is not a valid XPath expression.
+        time.sleep(5)
         windows=driver.window_handles
         driver.switch_to.window(windows[-1])
         #获取当前金额
@@ -180,10 +183,11 @@ for line in lines:
             driver.find_element_by_xpath('//*[@type="submit"]').click()
             driver.refresh()
             windows=driver.window_handles
-            driver.switch_to.window(windows[-2])
+            driver.switch_to.window(windows[-2])#进入点击资金管理界面
+            driver.find_element_by_xpath('//*[@id="react-content"]/div/div[2]/div[2]/div[1]/div/a[3]').click()
+
         #已经绑定银行卡
         #点击、进入提现   企业转账只能转账到支付宝，转账到银行卡只能用提现
-        driver.find_element_by_xpath('//*[@id="react-content"]/div/div[2]/div[2]/div[1]/div/a[3]').click()
         #输入提现
         price=float(price)/2
         driver.find_element_by_xpath('//*[@id="J_paymentToBankCardAmount"]').send_keys(price)
@@ -296,11 +300,11 @@ for line in lines:
             print "hanzi: %s"%hanzi
             print type(hanzi)
             #截图点选汉字图片
-            img=driver.find_element_by_tag_name('img')
+            img=driver.find_elements_by_tag_name('img')[0]
             size=img.size
             print "size:%s"%size          #size:{'width': 230, 'height': 230}
             location=img.location   #location:{'y': 563.0, 'x': 311.0}
-            print "location:%s"%location
+            print "location:%s"%location  #图片右下角位置
             print type(location)    #<type 'dict'>
 
             driver.save_screenshot('./tupian/datu.png')
@@ -315,26 +319,31 @@ for line in lines:
             # erzhihua('./tupian/xiaotu.png')
             #处理图片/识别汉字,引入tx_yinshua模块
             hanzi_location=tx_yinshua(hanzi,'./tupian/xiaotu.png')    #{'x':121,'y':197}
-            print"hanzi_location:%s" %hanzi_location
+            # print"hanzi_location:%s" %hanzi_location
+            # xoffset=hanzi_location["x"]-location["x"]
+            # yoffset=hanzi_location["y"]-location["y"]
+            # print "xoffset:%s   "%xoffset
+            # print  "yoffset%s   "%yoffset
             if hanzi_location!=None:
-                time.sleep(2)
+                time.sleep(random.randint(1,3))
                 print "zheli"
                 ActionChains(driver).move_to_element_with_offset(img,hanzi_location["x"],hanzi_location["y"]).click().perform()
-                time.sleep(3)
+                time.sleep(random.randint(1,3))
 
             else:
-                time.sleep(2)
-                ActionChains(driver).move_to_element_with_offset(img, "-100","-100").click().perform()
-                time.sleep(3)
+                time.sleep(random.randint(1,3))
+                print "wozai else limian "
+                ActionChains(driver).move_to_element_with_offset(img, 100,100).click().perform()
+                time.sleep(random.randint(1,3))
         time.sleep(5)
         driver.find_element_by_xpath('//*[@value="确认信息并付款"]').click()
-        time.sleep(2)
+        time.sleep(random.randint(1, 3))
         driver.find_element_by_xpath('//*[@id="payPassword_container"]').click()
         for z in zpassw:
             time.sleep(random.randint(1,3))
-            driver.switch_to_active_element().send_keys(z)
+            driver.switch_to.active_element.send_keys(z)
         driver.find_element_by_xpath('//*[@id="J_authSubmit"]').click()
-        time.sleep(1)
+        time.sleep(random.randint(1, 3))
         already_pay='//*[@class="notice-box  notice-success  fn-clear"]'
         if xpath_iselement(already_pay):
             print "银行卡转账提交成功"
