@@ -1,11 +1,11 @@
 #!/user/bin/python
 #  -*-coding: utf-8-*-
 import unittest
-from jiandian01 import getmsg_ex, swipe
+# from jiandian01 import getmsg_ex, swipe
 import time
-
-from jiandian.common import driver_config,gesture_mainpulation,get_toast,query_database
-from jiandian.LK import creat_page
+#
+# from jiandian.common import driver_config,gesture_mainpulation,get_toast,query_database
+# from jiandian.LK import creat_page
 from selenium.webdriver.common.by import By
 from appium import webdriver
 import time
@@ -21,12 +21,12 @@ class zhifubao(unittest.TestCase):
     def setUp(self):
         desired_caps = {}
         desired_caps['platformName'] = 'Android'
-        # desired_caps['platfromVersion'] = '7.1.1'
-        # desired_caps['deviceName'] = '33d04c7c'
-        desired_caps['platfromVersion']='7.1.2'#红米5A
-        desired_caps['deviceName']='79bad8ec7d94'
+        desired_caps['platfromVersion'] = '7.1.1'
+        desired_caps['deviceName'] = '33d04c7c'
+        # desired_caps['platfromVersion']='7.1.2'#红米5A
+        # desired_caps['deviceName']='79bad8ec7d94'
         desired_caps['appPackage'] = 'com.eg.android.AlipayGphone'
-        desired_caps['automationName'] = 'uiautomator2'  ##############
+        # desired_caps['automationName'] = 'uiautomator2'  ##############
         desired_caps['appActivity'] = 'com.eg.android.AlipayGphone.AlipayLogin'
         desired_caps['noReset']=True
 
