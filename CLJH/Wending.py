@@ -68,7 +68,7 @@ class JHWENDING(unittest.TestCase):
         adb="adb shell screencap -p /sdcard/fb01.png"
         os.system(adb)
         time.sleep(2)
-        self.driver.start_activity('com.eg.android.AlipayGphone','com.eg.android.AlipayGphone.AlipayLogin')  #start_activity(package,activity)  窗口句柄还停留在chrome页面
+        self.driver.launch_app('com.eg.android.AlipayGphone','com.eg.android.AlipayGphone.AlipayLogin')  #start_activity(package,activity)  窗口句柄还停留在chrome页面
         time.sleep(2)
         print self.driver.current_activity
         self.driver.find_element_by_xpath("//android.widget.TextView[@text='扫一扫']").click()
