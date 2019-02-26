@@ -9,7 +9,7 @@ class PAY():
         gate_way_url = "https://www.juhepay.com/Pay_Index.html"
         datas = {
             'version': '1.0',
-            'content': json.dumps(content),
+            'content': json.dumps(content)
         }
         pay_md5sign_str = self.pay_md5sign(**datas)
         if not pay_md5sign_str:
