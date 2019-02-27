@@ -6,7 +6,7 @@ from selenium import webdriver
 class PAY():
 
     def request_pay(self,api_name, content):
-        gate_way_url = "https://pay.hongnaga.com/api/gateway"
+        gate_way_url = "https://dev.herbeauty.top/Pay_Index.html"
         mch_id = "12001"
         datas = {
             'method': api_name,
@@ -62,8 +62,9 @@ datas = {
     'goods': '支付宝-H5',
     'order_sn': int(time.time()),
     'client': 'web',
-    'notify_url': 'http://www.baidu.com/notify_url',
-    'return_url': 'http://www.baidu.com/return_url'
+    'notify_url': 'http://pay_project.com:8888/notify',
+    'return_url': 'http://pay_project.com:8888/return',
+
 }
 pay=PAY()
 r2 = pay.request_pay(api_name, datas)
