@@ -2,6 +2,7 @@
 # coding:utf-8
 import time, json,hashlib, requests
 import urllib3
+from selenium import webdriver
 urllib3.disable_warnings()
 #juhe请求接口并发
 class PAY():
@@ -14,7 +15,7 @@ class PAY():
         datas = {
             'pay_memberid': '10005',
             'pay_orderid': 20050000000000 + int(time.time()),
-            'pay_amount': '56',
+            'pay_amount': '85',
             'pay_bankcode': '904',
             'pay_productname': '支付宝H5测试',
             'pay_notifyurl': 'https://dev.herbeauty.top/Home_Index_test10',
@@ -30,6 +31,7 @@ class PAY():
         #方法一：
         print datas
         result = requests.post(gate_way_url,data=datas,verify=False) #requests 模块发起请求时，url 不需要进行编码
+        # print result.text
         return result.text
         #方法二：
         # datas_encode = urllib.urlencode(datas) # 中文转换url编码 只对dict 有效,将data 中的逗号改为=
@@ -62,8 +64,11 @@ class PAY():
         # print "pay_md5sign : "+ md5_pay_md5sign
         return md5_pay_md5sign.upper()
 pay=PAY()
+# r2=pay.request_pay()
+# driver=webdriver.Chrome()
 i=0
-while i<2:
+while i<110:
     r2 = pay.request_pay()
+    time.sleep(5)
     i+=1
-print r2
+# print r2
