@@ -39,7 +39,72 @@
 # print z
 # with open("./rsa_private_key.pem", "w") as f2:
 #     f2.write(z)
-import os
-path="12"
-print os.listdir('.')#当前目录
-print os.path.splitext(path)
+# import os
+# path="12"
+# print os.listdir('.')#当前目录
+# print os.path.splitext(path)#以后缀名开始分割
+
+# #输入某年某月某日，判断这一天是这一年的第几天？
+# year=int(raw_input('year:'))
+# month=int(raw_input('month:'))
+# days=int(raw_input('days:'))
+# months=(0,31,59,90,120,151,181,212,243,273,304,334)
+# if 0<month<=12:
+#     sum=months[month-1]
+#     sums = sum + days
+# else:
+#     print "data error"
+# leap=0
+# if (year%400==0) or ((year%4==0)and(year%100!=0)):
+#     leap=1
+# if (leap==1) and (month>2):
+#     sums+=1
+# print "it is the %dth day."%sums
+
+# # 输入三个整数x,y,z，请把这三个数由小到大输出。
+# l=[]
+# for i in range(3):
+#     x=int(raw_input("正式:"))
+#     l.append(x)
+# l.sort()
+# print l
+
+# # 将一个列表的数据复制到另一个列表中。
+# a=[1,2,3]
+# b=a[:]
+# print b
+
+# # 输出 9*9 乘法口诀表
+# for i in range(1,10):
+#     print
+#     for j in range(1,i+1):
+#         print "%d*%d=%d"%(i,j,i*j)
+#
+# # 暂停一秒输出。
+# import time
+# myD={1:'a',2:'b'}
+# for key,value in dict.items(myD):
+#     print key,value
+#     time.sleep(1)
+
+# # 暂停一秒输出，并格式化当前时间。
+# import time
+# print time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+# time.sleep(1)
+
+# # 古典问题：有一对兔子，从出生后第3个月起每个月都生一对兔子，小兔子长到第三个月后每个月又生一对兔子，假如兔子都不死，问每个月的兔子总数为多少？
+f1=1
+f2=1
+
+n=int(raw_input("how rabbit:"))
+if 0<n<3:
+    for i in range(1,n+1):
+        print "%d month rabbit numbers is %d" % (i,f1)
+else:
+    print "1 month rabbit numbers is 1"
+    print "2 month rabbit numbers is 1"
+    for i in range(3,n+1):
+        f=f1+f2
+        print "%d month rabbit numbers is %d" %(i,f)
+        f1=f2
+        f2=f
