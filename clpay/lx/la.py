@@ -74,12 +74,13 @@
 # b=a[:]
 # print b
 
-# # 输出 9*9 乘法口诀表
+# 输出 9*9 乘法口诀表
 # for i in range(1,10):
-#     print
+#     print ''
 #     for j in range(1,i+1):
 #         print "%d*%d=%d"%(i,j,i*j)
-#
+
+
 # # 暂停一秒输出。
 # import time
 # myD={1:'a',2:'b'}
@@ -93,18 +94,61 @@
 # time.sleep(1)
 
 # # 古典问题：有一对兔子，从出生后第3个月起每个月都生一对兔子，小兔子长到第三个月后每个月又生一对兔子，假如兔子都不死，问每个月的兔子总数为多少？
-f1=1
-f2=1
+# f1=1
+# f2=1
+#
+# n=int(raw_input("how rabbit:"))
+# if 0<n<3:
+#     for i in range(1,n+1):
+#         print "%d month rabbit numbers is %d" % (i,f1)
+# else:
+#     print "1 month rabbit numbers is 1"
+#     print "2 month rabbit numbers is 1"
+#     for i in range(3,n+1):
+#         f=f1+f2
+#         print "%d month rabbit numbers is %d" %(i,f)
+#         f1=f2
+#         f2=f
+#方法二
+# f1=1
+# f2=1
+# for i in range(1,4):
+#     print "%5ld %5ld"%(f1,f2)
+#     if i%3==0:
+#         print ''
+#     f1=f1+f2
+#     f2=f1+f2
 
-n=int(raw_input("how rabbit:"))
-if 0<n<3:
-    for i in range(1,n+1):
-        print "%d month rabbit numbers is %d" % (i,f1)
-else:
-    print "1 month rabbit numbers is 1"
-    print "2 month rabbit numbers is 1"
-    for i in range(3,n+1):
-        f=f1+f2
-        print "%d month rabbit numbers is %d" %(i,f)
-        f1=f2
-        f2=f
+# #判断101-200之间有多少个素数，并输出所有素数。
+# from math import sqrt
+# from sys import stdout
+# h=0
+# leap=1
+# for  m in range(101,200):
+#     k=int(sqrt(m+1))
+#     for i in range(2,k+1):
+#         if m%i==0:
+#             leap=0
+#             break
+#     if leap==1:
+#         print "%-4d"%m
+#         h+=1
+#         if h%10==0:
+#             print ''
+#     leap=1
+# print "total is %s"%h
+# # 打印出所有的"水仙花数"，所谓"水仙花数"是指一个三位数，其各位数字立方和等于该数本身。例如：153是一个"水仙花数"，因为153=1的三次方＋5的三次方＋3的三次方。
+# for n in range(100,999):
+#     i=n/100
+#     j=n/10%10
+#     k=n%10
+#     if n==i**3+j**3+k**3:
+#         print n
+
+# 题目：将一个正整数分解质因数。例如：输入90,打印出90=2*3*3*5。  15
+
+# import datetime
+# print (datetime.date.today().strftime('%Y%m%d'))
+
+# 输入一行字符，分别统计出其中英文字母、空格、数字和其它字符的个数。
+

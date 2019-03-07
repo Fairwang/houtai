@@ -15,7 +15,7 @@ class PAY():
         gate_way_url = "https://dev.herbeauty.top/Pay_Index.html"
         datas = {
             'pay_memberid': '10005',
-            'pay_orderid': 20050000000000 + int(time.clock()),
+            'pay_orderid': 20050000000000 + int(time.time()),
             # 'pay_orderid': 20050000000022,
             'pay_amount': '75',
             'pay_bankcode': '904',
@@ -66,7 +66,7 @@ class PAY():
         # print "pay_md5sign : "+ md5_pay_md5sign
         return md5_pay_md5sign.upper()
 pay=PAY()
-r2=pay.request_pay()
+# r2=pay.request_pay()
 # driver=webdriver.Chrome()
 
 # i=0
@@ -78,17 +78,21 @@ r2=pay.request_pay()
 
 
 #多进程并发
-# try:
-#     i=0
-#     tasks_number=1
-#     print "start test"
-#     time1=time.clock()
-#     while i <tasks_number:
-#         t=threading.Thread(target=pay.request_pay())
-#         t.start()
-#         i+=1
-#     time2=time.clock()
-#     time=time2-time1
-#     print (time/tasks_number)
-# except :
-#     print "error"
+try:
+    i=0
+    tasks_number=10
+    print "start test"
+    time1=time.clock()
+    time9=time.time()
+    while i <tasks_number:
+        t=threading.Thread(target=pay.request_pay())
+        t.start()
+        i+=1
+    time2=time.clock()
+    time10=time.time()
+    time=time2-time1
+    time11=time10-time9
+    print time
+    print time11
+except :
+    print "error"

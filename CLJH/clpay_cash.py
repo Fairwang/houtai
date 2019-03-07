@@ -10,7 +10,7 @@ from selenium import webdriver
 import time
 
 # from code.common import table
-from houtai.clpay.common import iselementexist
+from houtai.clpay.common import isElementExist
 class cash():
     def __init__(self,driver):
         self.driver=driver
@@ -20,7 +20,7 @@ class cash():
         # 移动句柄，对新打开页面进行操作
         self.driver.switch_to.window(self.driver.window_handles[-1])
         id="mch_id"
-        iselementexist1=iselementexist.isElementExist(self.driver)
+        iselementexist1=isElementExist.isElementExist(self.driver)
         if iselementexist1.isElementExistID(id):
             self.driver.find_element_by_id("mch_id").clear()
             self.driver.find_element_by_id("mch_id").send_keys(11024)
