@@ -1,9 +1,9 @@
 #!user/bin/python
 # coding:utf-8
 import time, json,hashlib, requests
-import urllib3
 import threading
 from selenium import webdriver
+import urllib3
 urllib3.disable_warnings()
 #juhe请求接口并发
 class PAY():

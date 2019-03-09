@@ -9,6 +9,8 @@ import random
 from selenium.webdriver.support.ui import Select
 import os
 from appium import webdriver
+import urllib3
+urllib3.disable_warnings()
 
 class saomiao(unittest.TestCase):
     def setUp(self):
@@ -20,6 +22,7 @@ class saomiao(unittest.TestCase):
         # desired_caps['appActivity']='org.chromium.chrome.browser.ChromeTabbedActivity'
         desired_caps['appPackage']='com.eg.android.AlipayGphone'
         desired_caps['appActivity']='com.eg.android.AlipayGphone.AlipayLogin'
+        time.sleep(10)
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
 
@@ -30,12 +33,12 @@ class saomiao(unittest.TestCase):
         time.sleep(2)
         self.driver.find_element_by_xpath("//android.widget.TextView[@text='相册']").click()
         time.sleep(2)
-        photos=self.driver.find_elements_by_id("com.alipay.mobile.beehive:id/iv_photo")
+        photos=self.driver.find_elements_by_class_name("android.widget.ImageView")
+        print photos
+        photos[0].click()
         time.sleep(2)
-        photos[-1].click()
-        time.sleep(2)
-        filename=int(time.time())
-        filename=''.join(filename)+".png"
+        filename=str(int(time.time()))
+        filename=filename+".png"
         self.driver.save_screenshot(filename)
         # self.driver.find_element_by_xpath("//android.widget.Button[@text='下一步']").click()
         # time.sleep(2)
@@ -61,11 +64,8 @@ class saomiao(unittest.TestCase):
         # self.driver.tap([(500*x/1080,1680*y/1920)],0)
         # time.sleep(3)
         # self.driver.find_element_by_xpath("//android.widget.TextView[@text='完成']").click()
-
-
-
     def tearDown(self):
         self.driver.quit()
 #
-# if __name__=='main':
-#     unittest.main()
+if __name__=='main':
+    unittest.main()
