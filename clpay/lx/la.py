@@ -159,3 +159,37 @@
 # print time.ctime()
 # print time.localtime()
 # print time.strftime("%Y %m %d %H:%M:%S",time.localtime())
+#
+# import os
+# print os.path.abspath(os.path.abspath("aa"))
+
+# from selenium import webdriver
+# from selenium.webdriver.common.alert import Alert
+# import time
+# import os
+# driver=webdriver.Chrome()
+# driver.implicitly_wait(3)
+# file='file:///F://alert.html'
+# driver.get(file)
+# driver.find_element_by_xpath('//*[@onclick="myFunctionPrompt()"]').click()
+# time.sleep(2)
+# prompt=Alert(driver)
+# print ('prompt text:'+prompt.text)
+# prompt.send_keys("study no jintou")
+# time.sleep(2)
+# prompt.accept()
+# print ('what you have done is :'+driver.find_element_by_id('action').get_attribute('value'))
+# time.sleep(2)
+#
+
+import json
+
+a={1:2}
+print type(a)
+
+print json.dumps(a)
+print type(json.dumps(a))
+
+print type((1,2))
+print json.dumps((1,2))
+print type(json.dumps((1,2)))

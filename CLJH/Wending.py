@@ -64,6 +64,11 @@ class JHWENDING(unittest.TestCase):
         self.driver.find_element_by_id("pay").click()
         time.sleep(2)
         # self.driver.background_app(100)
+        b=self.driver.switch_to.alert
+        b.accept()
+        time.sleep(2)
+        c=self.driver.switch_to.alert
+        c.dismiss()
         print self.driver.current_activity
         adb="adb shell screencap -p /sdcard/fb01.png"
         os.system(adb)
