@@ -182,14 +182,16 @@
 # time.sleep(2)
 #
 
-import json
+# import json
+# a={1:2}
+# print type(a)
+# print json.dumps(a)
+# print type(json.dumps(a))
+# print type((1,2))
+# print json.dumps((1,2))
+# print type(json.dumps((1,2)))
 
-a={1:2}
-print type(a)
 
-print json.dumps(a)
-print type(json.dumps(a))
-
-print type((1,2))
-print json.dumps((1,2))
-print type(json.dumps((1,2)))
+jsonStr = '{"statusCode": 200,//成功返回值200\n"message": "已成功获取http://www.baidu.com\n"}'
+import json5
+json5.loads(jsonStr)
