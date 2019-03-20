@@ -1,6 +1,5 @@
 #! user/bin/env
 # -*-coding:utf-8-*-
-
 # 赤龙聚合 点点银行卡支付
 import unittest
 import time
