@@ -10,7 +10,7 @@ from selenium import webdriver
 import time
 from houtai.clpay.common import isElementExist
 
-from code.common import table
+from houtai.cpay.common import table
 
 class merchant():
     def __init__(self,driver):

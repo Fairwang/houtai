@@ -80,6 +80,7 @@ class clpay1():
 
 driver=webdriver.Chrome()
 daifu=clpay1(driver)
+
 account_id="201806"
 bank_code="01050000"
 bank_name=u"中国建设银行"

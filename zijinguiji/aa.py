@@ -46,19 +46,12 @@ import json
 #_
 # print 2
 
-# from selenium.webdriver import ActionChains
-# driver=webdriver.Chrome()
-# # driver.maximize_window()
-# driver.get("https://www.baidu.com/")
-# img=driver.find_element_by_xpath('//*[@class="index-logo-src"]')  #看春晚抢百度红包图片
-# print img.size
-# print img.location#
-# ActionChains(driver).move_to_element_with_offset(img,"22","102").click().perform()
-# ActionChains(driver).move_by_offset(22,102).click().perform()
-
-#{'width': 0, 'height': 14}
-#{'y': 267.0, 'x': 600.0}
-# hanzi {u'y': 209, u'x': 72, u'height': 21, u'width': 94}
-import random
-
-print random.randint(1,3)
+from selenium.webdriver import ActionChains
+driver=webdriver.Chrome()
+# driver.maximize_window()
+driver.get("https://www.baidu.com/")
+img=driver.find_element_by_xpath('//*[@class="index-logo-src"]')  #看春晚抢百度红包图片
+print img.size
+print img.location#
+ActionChains(driver).move_to_element_with_offset(img,"22","102").click().perform()
+ActionChains(driver).move_by_offset(22,102).click().perform()

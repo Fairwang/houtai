@@ -1,5 +1,6 @@
 #!user/bin/python
 # coding: utf-8
+#商户后台-账户管理获取渠道账户信息
 from selenium import webdriver
 import time
 from selenium.webdriver.support.wait import WebDriverWait
@@ -8,9 +9,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium import webdriver
 import time
-
-
-from code.common import table
+from houtai.cpay.common import table
 from houtai.clpay.common import isElementExist
 class account():
     def __init__(self,driver):

@@ -1,5 +1,6 @@
 #!user/bin/python
 # coding: utf-8
+#后台提现界面
 from selenium import webdriver
 import time
 from selenium.webdriver.support.wait import WebDriverWait
@@ -8,8 +9,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium import webdriver
 import time
-
-from code.common import table
+from houtai.cpay.common import table
 from houtai.clpay.common import isElementExist
 class cash():
     def __init__(self,driver):

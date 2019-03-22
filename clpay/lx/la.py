@@ -1,5 +1,6 @@
 #!user/bin/python
 # coding:utf-8
+
 # from selenium import webdriver
 # import re
 # import time
@@ -190,8 +191,79 @@
 # print type((1,2))
 # print json.dumps((1,2))
 # print type(json.dumps((1,2)))
+#
+# import time
+# import os
+# from selenium import webdriver
+# driver=webdriver.Chrome()
+# driver.get("https://www.baidu.com")
+# print driver.window_handles
+# t=time.strftime("%Y%m%d.%H%M%S",time.localtime())
+# # print t
+# file='./'+t+'.png'
+# # file=os.path.dirname(os.path.realpath(__file__))#获得当前文件__file__所在的目录
+# # print file
+# driver.get_screenshot_as_file(file)
+#
+# #读取文件中的汉字
+# import io
+# with io.open("F:\jiandian\daifu33.txt",'w',encoding='utf-8') as f:
+#     f.write(unicode("\xEF\xBB\xBF","utf-8"))
+# with open("F:\jiandian\daifu33.txt" ) as file:
+#     aa = file.readlines()
+#     print aa
+#     for i in range(len(aa) + 1):
+#         print aa[i]
+#         bb = aa[i].split(",")
+#     print "this is bb:%s" % bb
 
+a="CDwindow-1"
+print type(a)
 
-jsonStr = '{"statusCode": 200,//成功返回值200\n"message": "已成功获取http://www.baidu.com\n"}'
-import json5
-json5.loads(jsonStr)
+import time
+from selenium   import webdriver
+from selenium.webdriver.support.ui import Select
+driver =webdriver.Chrome()
+driver.get('https://cpay.hypayde.com/demo.html?debug=true')
+# self.driver.get('https://pay.hongnaga.com/?debug=true')
+a = driver.switch_to.alert
+# a.send_keys("123456778")
+a.send_keys("112233")
+a.accept()
+time.sleep(2)
+# self.driver.tap([(523, 1825)], 890)
+lines = [18]
+i = 1
+windows1 = driver.window_handles
+print"before pay%s" % windows1
+for price in lines:
+    print  price
+    # 商户ID
+    driver.find_element_by_xpath("//*[@name='mch_id']").clear()
+    driver.find_element_by_xpath("//*[@name='mch_id']").send_keys("1025")
+    # 支付方式
+    pay_type = Select(driver.find_element_by_id("pay_type"))
+    driver.find_element_by_id("pay_type").click()
+    # pay_type.select_by_value("11")  # 支付宝wap
+    pay_type.select_by_value("7")  # （支付宝）当面付扫码
+    # pay_type.select_by_value("5")  # 支付宝H5
+    # 金额
+    driver.find_element_by_name("price").clear()  #
+    driver.find_element_by_name("price").send_keys(price)
+
+    driver.find_element_by_id("pay").click()  # 点击了但是没有得到相应的效果
+    time.sleep(5)
+    print driver.current_window_handle
+    # print self.driver.title
+    # self.driver.switch_to.active_element.click()
+    # self.driver.find_element_by_id("pay").click()
+    # time.sleep(10)
+    windows = driver.window_handles
+    print "after pay%s" % windows
+    # print windows[-1], type(windows[-1])
+    # # w = windows[-1]
+    # # ww = w.encode('utf-8')
+    # # print type(ww)
+    # driver.switch_to.window(windows[-1])
+    driver.close()
+    print driver.current_window_handle

@@ -1,7 +1,6 @@
 #!/user/bin/python
 #  -*-coding: utf-8-*-
-from PIL import Image,ImageEnhance
-import pytesseract
+
 from selenium import webdriver
 import time
 # from array import *

@@ -9,7 +9,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium import webdriver
 from houtai.clpay.common import isElementExist
 import time
-from code.common import table
+from houtai.cpay.common import table
 class profit_cash():
     def __init__(self,driver):
         self.driver=driver
