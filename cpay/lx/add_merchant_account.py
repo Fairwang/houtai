@@ -23,8 +23,7 @@ class merchant_account(unittest.TestCase):
         # aa.accept()
         self.name="test001"
         self.key="123456"
-@
-    def test_add(self):
+
 
         time.sleep(2)
         self.ele.click_C2C()
@@ -54,10 +53,6 @@ class merchant_account(unittest.TestCase):
         #     print "yes"
         # else:
         #     print "no"
-
-    def test_del(self):
-
-
 
     def tearDown(self):
         self.driver.quit()
