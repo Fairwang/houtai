@@ -36,7 +36,7 @@ class creat_page(base_page.BaseAaction):
     bind_alipay_loc2=(By.LINK_TEXT,'payment@shopjian.com')
     # 启用按钮一类 #未被选择
     qiyong_loc=(By.XPATH,'//*[contains(@class,"iradio_square-green hover")]')
-    sub_loc=(By.XPATH,"//*[@id,'sub']")
+    sub_loc=(By.XPATH,"//*[contains(@id,'sub')]")
 
 #c2c  APP账号
     def click_C2C(self):

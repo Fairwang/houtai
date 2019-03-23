@@ -31,7 +31,7 @@ if __name__=='__main__':
     # runner=unittest.TextTestRunner()
     # runner.run(suite)
     #方法3
-    # test_dir='./'
-    # discover=unittest.defaultTestLoader.discover(test_dir,pattern="test_*.py")
-    # runner=unittest.TextTestRunner()
-    # runner.run(discover)
+    test_dir='./'
+    discover=unittest.defaultTestLoader.discover(test_dir,pattern="test_*.py")
+    runner=unittest.TextTestRunner()
+    runner.run(discover)
