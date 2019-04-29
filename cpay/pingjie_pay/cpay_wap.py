@@ -11,10 +11,10 @@ class C2Cwap(unittest.TestCase):
     def setUp(self):
         self.desired_caps={}
         self.desired_caps['platformName']='Android'#测试的目标机器
-        # self.desired_caps['platfromVersion']='7.1.1'#目标设备的系统版本
-        # self.desired_caps['deviceName']='33d04c7c'#测试机器的名称（设备名称即可）
-        self.desired_caps['platfromVersion']='8.0.0'#目标设备的系统版本
-        self.desired_caps['deviceName']='73EBB18706248705'#测试机器的名称（设备名称即可）
+        self.desired_caps['platfromVersion']='7.1.1'#目标设备的系统版本
+        self.desired_caps['deviceName']='33d04c7c'#测试机器的名称（设备名称即可）
+        # self.desired_caps['platfromVersion']='8.0.0'#目标设备的系统版本
+        # self.desired_caps['deviceName']='73EBB18706248705'#测试机器的名称（设备名称即可）
         self.desired_caps['browserName']='Chrome'
         self.desired_caps['noReset']='true'
         # self.desired_caps['appPackage']='com.android.chrome'#被测应用的包名（只有Android测试才用）

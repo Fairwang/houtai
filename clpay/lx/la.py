@@ -199,12 +199,24 @@
 # driver.get("https://www.baidu.com")
 # print driver.window_handles
 # t=time.strftime("%Y%m%d.%H%M%S",time.localtime())
-# # print t
+# print t
 # file='./'+t+'.png'
 # # file=os.path.dirname(os.path.realpath(__file__))#获得当前文件__file__所在的目录
 # # print file
 # driver.get_screenshot_as_file(file)
 #
+# import time
+# import os
+# print os.path.dirname(__file__)#脚本所在目录路径
+# print os.path.realpath(__file__)#脚本路径
+# from selenium import webdriver
+# driver=webdriver.Chrome()
+# driver.get("https://www.baidu.com")
+# filename = str(int(time.strftime("%m%d%H%M%S", time.localtime())))
+# filename = os.path.dirname(os.path.realpath(__file__))+"\\picture\\"+filename + ".png"
+# print filename
+# driver.save_screenshot(filename)
+# time.sleep(1100)
 # #读取文件中的汉字
 # import io
 # with io.open("F:\jiandian\daifu33.txt",'w',encoding='utf-8') as f:
@@ -217,53 +229,143 @@
 #         bb = aa[i].split(",")
 #     print "this is bb:%s" % bb
 
-a="CDwindow-1"
-print type(a)
+# a="CDwindow-1"
+# print type(a)
+#
+# import time
+# from selenium   import webdriver
+# from selenium.webdriver.support.ui import Select
+# driver =webdriver.Chrome()
+# driver.get('https://cpay.hypayde.com/demo.html?debug=true')
+# # self.driver.get('https://pay.hongnaga.com/?debug=true')
+# a = driver.switch_to.alert
+# # a.send_keys("123456778")
+# a.send_keys("112233")
+# a.accept()
+# time.sleep(2)
+# # self.driver.tap([(523, 1825)], 890)
+# lines = [18]
+# i = 1
+# windows1 = driver.window_handles
+# print"before pay%s" % windows1
+# for price in lines:
+#     print  price
+#     # 商户ID
+#     driver.find_element_by_xpath("//*[@name='mch_id']").clear()
+#     driver.find_element_by_xpath("//*[@name='mch_id']").send_keys("1025")
+#     # 支付方式
+#     pay_type = Select(driver.find_element_by_id("pay_type"))
+#     driver.find_element_by_id("pay_type").click()
+#     # pay_type.select_by_value("11")  # 支付宝wap
+#     pay_type.select_by_value("7")  # （支付宝）当面付扫码
+#     # pay_type.select_by_value("5")  # 支付宝H5
+#     # 金额
+#     driver.find_element_by_name("price").clear()  #
+#     driver.find_element_by_name("price").send_keys(price)
+#
+#     driver.find_element_by_id("pay").click()  # 点击了但是没有得到相应的效果
+#     time.sleep(5)
+#     print driver.current_window_handle
+#     # print self.driver.title
+#     # self.driver.switch_to.active_element.click()
+#     # self.driver.find_element_by_id("pay").click()
+#     # time.sleep(10)
+#     windows = driver.window_handles
+#     print "after pay%s" % windows
+#     # print windows[-1], type(windows[-1])
+#     # # w = windows[-1]
+#     # # ww = w.encode('utf-8')
+#     # # print type(ww)
+#     # driver.switch_to.window(windows[-1])
+#     driver.close()
+#     print driver.current_window_handle
+#
+# aa={"mobile":"15868314566","code":"123456790","invite_code":"12344568"}
+# print aa.get("code")
+#
+# bb={'token': 'd6f2c03aaae0c95755ea5c8f071dcf1a', 'Content-Type': 'application/json'}
+# cc=sorted(bb.items())
+# print cc
 
-import time
-from selenium   import webdriver
-from selenium.webdriver.support.ui import Select
-driver =webdriver.Chrome()
-driver.get('https://cpay.hypayde.com/demo.html?debug=true')
-# self.driver.get('https://pay.hongnaga.com/?debug=true')
-a = driver.switch_to.alert
-# a.send_keys("123456778")
-a.send_keys("112233")
-a.accept()
-time.sleep(2)
-# self.driver.tap([(523, 1825)], 890)
-lines = [18]
-i = 1
-windows1 = driver.window_handles
-print"before pay%s" % windows1
-for price in lines:
-    print  price
-    # 商户ID
-    driver.find_element_by_xpath("//*[@name='mch_id']").clear()
-    driver.find_element_by_xpath("//*[@name='mch_id']").send_keys("1025")
-    # 支付方式
-    pay_type = Select(driver.find_element_by_id("pay_type"))
-    driver.find_element_by_id("pay_type").click()
-    # pay_type.select_by_value("11")  # 支付宝wap
-    pay_type.select_by_value("7")  # （支付宝）当面付扫码
-    # pay_type.select_by_value("5")  # 支付宝H5
-    # 金额
-    driver.find_element_by_name("price").clear()  #
-    driver.find_element_by_name("price").send_keys(price)
+# import requests
+# headers={'token': 'd7098cd6f681e07fe87c0fd60bb1b144', 'Content-Type': 'application/json'}
+# url="https://wallet.herbeauty.top/api/v1/banner/1"
+# print requests.get(url,headers=headers).text
 
-    driver.find_element_by_id("pay").click()  # 点击了但是没有得到相应的效果
-    time.sleep(5)
-    print driver.current_window_handle
-    # print self.driver.title
-    # self.driver.switch_to.active_element.click()
-    # self.driver.find_element_by_id("pay").click()
-    # time.sleep(10)
-    windows = driver.window_handles
-    print "after pay%s" % windows
-    # print windows[-1], type(windows[-1])
-    # # w = windows[-1]
-    # # ww = w.encode('utf-8')
-    # # print type(ww)
-    # driver.switch_to.window(windows[-1])
-    driver.close()
-    print driver.current_window_handle
+# a={'a':'v'}
+# # b=str(a)
+# # # c=eval(a)
+# # d=eval(b)
+# print type(a)
+# import os
+# import re
+# rlist=[]
+# name  = "F:/Users/tinyw/PycharmProjects/untitled/hswallet/cases/"
+# # print name
+# # print os.walk(name)
+# for dir,folde,file in os.walk(name):
+#     for i in file:
+#         t = "%s%s" % (dir, i)
+#         if (re.match('wallet_*',i))!=None:
+#         # print t
+#             rlist.append(t)
+# print rlist
+
+# for i in rlist:
+#     name1=re.match('wallet_*',i).span()
+#     print name1
+
+# def verify_code1():
+#     verify_code=1
+#     login_headers=2
+#     return verify_code,login_headers
+# print verify_code1()[1]
+
+# a="1234"
+# print a[-2:]
+#
+# import time
+# import datetime
+#
+# t = time.time()
+#
+# print (t)                       #原始时间数据
+# print (int(t))                  #秒级时间戳
+# print (int(round(t * 1000)))    #毫秒级时间戳
+#
+# nowTime = lambda:int(round(t * 1000))
+# print (nowTime())           #毫秒级时间戳，基于lambda
+#
+# print (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))   #日期格式化
+# print (time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+# b=(str(round(t * 1000)),158)
+# a={}
+# a["dd"]=format(int(1554107715308))
+# print a,b
+
+#
+# import demjson
+# data =[{'a':1,'b':2}]
+# print type(data)
+# data2=demjson.encode(data)
+# print type(data2)
+# print data2
+
+import os,time
+# aa=os.system("adb shell dumpsys cpuinfo | findstr com.example.wallet.dev")
+# print aa
+nn=os.popen('adb shell dumpsys cpuinfo | findstr com.eg.android.AlipayGphone')
+# time.sleep(2)
+print nn.readlines()
+# nn=os.popen("adb shell dumpsys battery")
+# # time.sleep(2)
+# print nn.readlines()
+# adb shell dumpsys cpuinfo | findstr com.eg.android.AlipayGphone
+#  com.example.wallet.dev/com.example.wallet.core.main.MainActivity
+# import requests
+
+# headers={'token': 'ca2c2def79a8da5d9b644eaa668931d0', 'Content-Type': 'application/json'}
+# r=requests.get("https://wallet.herbeauty.top/api/v1/user/set_real_name?id_type=2&credential_no=410&real_name=张三疯",headers=headers).text
+# print r
+
+
