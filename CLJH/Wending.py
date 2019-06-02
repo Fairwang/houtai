@@ -66,6 +66,7 @@ class JHWENDING(unittest.TestCase):
         # self.driver.background_app(100)
         b=self.driver.switch_to.alert
         b.accept()
+
         time.sleep(2)
         c=self.driver.switch_to.alert
         c.dismiss()

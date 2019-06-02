@@ -5,7 +5,7 @@ import unittest
 import time
 #
 # from jiandian.common import driver_config,gesture_mainpulation,get_toast,query_database
-# from jiandian.LK import creat_page
+# from jiandian.page import creat_page
 from selenium.webdriver.common.by import By
 from appium import webdriver
 import time
